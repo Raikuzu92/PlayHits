@@ -1,18 +1,37 @@
 const router = require("express").Router();
 
 // import any models you plan to use for this data's routes here
-const { ExampleData } = require("../../models");
+const { MusicData } = require("../../models");
 
 // protects routes from non-logged in users
 const { apiGuard } = require("../../utils/authGuard");
 
+router.get('/', async (req, res) => {
+  try {
+    const MusicData = await MusicData.findAll({
+      include: [
+        {
+          model: MusicData,
+          attributes: ['track_name', 'Artist_Name', 'Album_Name', 'Album_Image_URL', 'Label'],
+        },
+      ],
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+
+
+
 router.post("/", apiGuard, async (req, res) => {
   try {
-    const newExampleData = await ExampleData.create({
+    const newMusicData = await MusicData.create({
       ...req.body,
       user_id: req.session.user_id,
     });
-    res.json(newExampleData);
+    res.json(newMusicData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -20,7 +39,7 @@ router.post("/", apiGuard, async (req, res) => {
 
 router.put("/:id", apiGuard, async (req, res) => {
   try {
-    const [updatedRows] = await ExampleData.update(req.body, {
+    const [updatedRows] = await MusicData.update(req.body, {
       where: {
         id: req.params.id,
       },
@@ -38,7 +57,7 @@ router.put("/:id", apiGuard, async (req, res) => {
 
 router.delete("/:id", apiGuard, async (req, res) => {
   try {
-    const [destroyedRows] = ExampleData.destroy({
+    const [destroyedRows] = MusicData.destroy({
       where: {
         id: req.params.id,
       },

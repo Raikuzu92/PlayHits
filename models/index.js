@@ -1,6 +1,6 @@
 // import all models here
 const User = require("./User");
-const ExampleData = require("./ExampleData");
+const ExampleData = require("./MusicData");
 
 // Reminder- create any additional associations here
 ExampleData.belongsTo(User, {
