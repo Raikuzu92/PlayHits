@@ -1,21 +1,115 @@
-/* any css stylesheets can go in this folder */
-/* hint- remember to import them in your handlebars! */
-#header {
-  background-color: lightblue;
-}
-#footer {
-  background-color: lightcoral;
-}
-#nav {
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  background-image: url('/images/background-image.png');
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-#nav > ul {
+/* Header */
+#header {
+  background-color: transparent;
+  padding: 20px;
+  text-align: center;
+  color: #4750FF;
+}
+
+/* Footer */
+#footer {
+  background-color: transparent;
+  padding: 10px 20px;
+  text-align: center;
+  color: #4750FF;
+  margin-top: auto;
+}
+
+/* Navbar */
+.navbar-brand {
   display: flex;
-  list-style-type: none;
   align-items: center;
 }
 
-#nav > ul > li {
-  margin: 0 10px;
+.navbar-brand img {
+  margin-left: 10px;
+}
+
+.navbar-nav .nav-item:last-child {
+  margin-right: 0;
+}
+
+/* Main Search Form */
+form {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+form input[type="text"] {
+  background-color: transparent;
+  border: 2px solid #4750FF;
+  color: white;
+  padding: 10px;
+  width: 100%; /* Allow full width within container */
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+form button {
+  background-color: #4750FF;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+  transition: background-color 0.3s ease;
+  outline: none;
+}
+
+form button:hover {
+  background-color: #3b44e4;
+}
+
+/* Card Styling */
+.card {
+  background-color: transparent;
+  border: 1px solid #4750FF;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #4750FF;
+}
+
+.card .icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+  color: #4750FF;
+}
+
+.row {
+  margin-top: 40px;
+}
+
+.col-md-4 {
+  margin-bottom: 20px;
+}
+
+/* Main Content Container */
+.container {
+  max-width: 960px;
+  padding: 0 20px;
+  margin: auto;
 }
