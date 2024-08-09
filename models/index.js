@@ -1,16 +1,16 @@
 // import all models here
 const User = require("./User");
-const ExampleData = require("./ExampleData");
+const MusicData = require("./MusicData");
 
 // Reminder- create any additional associations here
-ExampleData.belongsTo(User, {
-  foreignKey: "userId",
-  onDelete: "CASCADE",
-});
+// MusicData.belongsTo(User, {
+//   foreignKey: "user_id",
+//   onDelete: "CASCADE",
+// });
 
-User.hasMany(ExampleData, {
-  foreignKey: "userId",
-});
+// User.hasMany(MusicData, {
+//   foreignKey: "user_id",
+// });
 
 // export all models here
-module.exports = { User, ExampleData };
+module.exports = { User, MusicData };
