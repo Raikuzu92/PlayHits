@@ -4,13 +4,12 @@ const router = require("express").Router();
 const homeRoutes = require("./homeRoutes");
 const apiRoutes = require("./api/");
 const pageOneRoutes = require("./pageOneRoutes");
-
-
+const aboutOneRoutes = require("./aboutRoutes");
 
 // Connect the routes to the router here
 router.use("/", homeRoutes);
 router.use("/api", apiRoutes);
 router.use("/pageOne", pageOneRoutes);
-
+router.use("/about", aboutOneRoutes);
 
 module.exports = router;
