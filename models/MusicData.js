@@ -14,17 +14,7 @@ MusicData.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    message: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "user",
-        key: "id",
-      },
-    },
+   
     // Reminder- Add any new columns to the ExampleData model here
       track_uri: {
         type: DataTypes.STRING,
@@ -175,7 +165,7 @@ MusicData.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "data one",
+    modelName: "musicdata",
   }
 );
 
