@@ -5,17 +5,12 @@ const { MusicData } = require("../../models");
 
 // protects routes from non-logged in users
 const { apiGuard } = require("../../utils/authGuard");
-
+//tested in insomnia !!!
 router.get('/', async (req, res) => {
   try {
-    const MusicData = await MusicData.findAll({
-      include: [
-        {
-          model: MusicData,
-          attributes: ['track_name', 'Artist_Name', 'Album_Name', 'Album_Image_URL', 'Label'],
-        },
-      ],
-    });
+    const musicDataList = await MusicData.findAll({});
+    
+    res.json(musicDataList);  // Return the fetched data
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -24,8 +19,8 @@ router.get('/', async (req, res) => {
 
 
 
-
-router.post("/", apiGuard, async (req, res) => {
+//tested in insomnia !!!
+router.post("/",  async (req, res) => {
   try {
     const newMusicData = await MusicData.create({
       ...req.body,
