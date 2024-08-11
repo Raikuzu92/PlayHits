@@ -60,6 +60,12 @@ app.use(express.static(path.join(__dirname, "public")));
 // sets up routes
 app.use(routes);
 
+app.get('/page-one', (req, res) => {
+  res.render('page-one'); // Ensure you have a 'views/page-one.handlebars' file
+});
+
+
+
 // connects database then starts express.js server
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () =>

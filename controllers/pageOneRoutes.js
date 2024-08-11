@@ -1,28 +1,46 @@
+// routes/pageOneRoutes.js
+
 const router = require("express").Router();
-
-// import any models you plan to use for this page's routes here
-const { ExampleData } = require("../models");
-
-// protects routes from unauthorized access
+const fs = require("fs");
+const path = require("path");
+const { Playlist, Song, Category } = require("../models");
 const { withGuard } = require("../utils/authGuard");
+
+const jsonFilePath = path.join(__dirname, '../seeds/musicData.json');
+const songData = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'));
 
 router.get("/", withGuard, async (req, res) => {
   try {
-    const databyUser = await ExampleData.findAll({
-      // Reminder- this is how you filter data by user_id
+    // Fetch the user's playlists
+    const userPlaylists = await Playlist.findAll({
       where: {
         user_id: req.session.user_id,
       },
+      include: [Song],
     });
 
-    const userExamples = databyUser.map((example) =>
-      example.get({ plain: true })
+    const playlists = userPlaylists.map((playlist) =>
+      playlist.get({ plain: true })
     );
-    // Reminder- We're passing the userExamples data to the page-one handlebars template here!
-    // Reminder- We're also passing the loggedIn status to the page-one handlebars template here so that we can conditionally render items if the user is logged in or not.
+
+    // Fetch trending songs
+    const trendingSongs = songData.slice(0, 10).map(song => ({
+      image: song['Album Image URL'],
+      title: song['Track Name'],
+      artist: song['Artist Name(s)'],
+      genre: song['Artist Genres'],
+      duration: (song['Track Duration (ms)'] / 60000).toFixed(2)
+    }));
+
+    // Fetch popular categories
+    const categories = ['Inspiring', 'Happy', 'Fun', 'Hip Hop', 'Cinematic', 'Chill', 'Calm', 'Upbeat', 'Hopeful', 'Electronic'];
+
+    // Render the data to the page-one template
     res.render("page-one", {
-      userExamples,
       loggedIn: req.session.logged_in,
+      playlists,
+      trendingSongs,
+      categories
     });
   } catch (err) {
     res.status(500).json(err);
