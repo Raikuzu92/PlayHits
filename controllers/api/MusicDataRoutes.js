@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 
 
 //tested in insomnia !!!
-router.post("/",  async (req, res) => {
+router.post("/", apiGuard, async (req, res) => {
   try {
     const newMusicData = await MusicData.create({
       ...req.body,
@@ -31,7 +31,7 @@ router.post("/",  async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+//tested in insomnia
 router.put("/:id", apiGuard, async (req, res) => {
   try {
     const [updatedRows] = await MusicData.update(req.body, {
@@ -49,7 +49,7 @@ router.put("/:id", apiGuard, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+//tested in insomnia!!!
 router.delete("/:id", apiGuard, async (req, res) => {
   try {
     const [destroyedRows] = MusicData.destroy({
