@@ -1,21 +1,23 @@
-<div>
-  <div>
-    <h2>Sign Up</h2>
-  </div>
-  <div id="signup" role="tabpanel">
-    <form id="signup-form">
-      <div>
-        <label for="username-input-signup">Username</label>
-        <input type="text" id="username-input-signup" />
-      </div>
-      <div>
-        <label for="password-input-signup">Password</label>
-        <input type="password" id="password-input-signup" />
-      </div>
-      <button type="submit" id="signup-btn">Signup!</button>
-      <a href="/login">Login instead</a>
-    </form>
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="signup-left">
+      <img src="/images/playHits_fullLogo.png" alt="PlayHits Logo" class="signup-icon">
+    </div>
+    <div class="signup-right">
+      <h2 class="signup-title">Create an Account</h2>
+      <form action="/signup" method="POST">
+        <div class="form-group">
+          <input type="text" name="username" placeholder="Username" class="form-input">
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email" class="form-input">
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Password" class="form-input">
+        </div>
+        <button type="submit" class="signup-button">SIGN UP</button>
+      </form>
+      <a href="/login" class="signup-link">Already have an Account? Login →</a>
+    </div>
   </div>
 </div>
-
-<script src="/js/signup.js"></script>
