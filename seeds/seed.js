@@ -1,12 +1,11 @@
 const sequelize = require("../config/connection");
 
 // Reminder- import any models you want to seed here
-const MusicData = require("../models/MusicData");
-
-console.log("MusicData:", MusicData);
+const { User, Song } = require("../models");
 
 // Reminder- import any data you want to seed here
 const musicData = require("./musicData.json");
+const userData = require("./userData.json");
 
 const seedDatabase = async () => {
   // sync all models
@@ -19,7 +18,14 @@ const seedDatabase = async () => {
     individualHooks: true,
     returning: true,
   });
-  console.log("Music data created");
+  console.log("Users created");
+
+  // bulkCreate example data
+  await Song.bulkCreate(musicData, {
+    individualHooks: true,
+    returning: true,
+  });
+  console.log("Song data created");
 
   // Reminder- add any other models you want to seed here
 
