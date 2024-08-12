@@ -1,14 +1,14 @@
 const router = require("express").Router();
 
 // import any models you plan to use for this data's routes here
-const { MusicData } = require("../../models");
+const { Song } = require("../../models");
 
 // protects routes from non-logged in users
 const { apiGuard } = require("../../utils/authGuard");
 //tested in insomnia !!!
 router.get('/', async (req, res) => {
   try {
-    const musicDataList = await MusicData.findAll({});
+    const musicDataList = await Song.findAll({});
     
     res.json(musicDataList);  // Return the fetched data
   } catch (err) {
