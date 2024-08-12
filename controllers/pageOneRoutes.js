@@ -1,48 +1,60 @@
-// routes/pageOneRoutes.js
+const router = require('express').Router();
+const fs = require('fs');
+const path = require('path');
 
-const router = require("express").Router();
-const fs = require("fs");
-const path = require("path");
-const { Playlist, Song, Category } = require("../models");
-const { withGuard } = require("../utils/authGuard");
+// Import the models
+const { Playlist, MusicData } = require('../models');
 
+// Protects routes from unauthorized access
+const { withGuard } = require('../utils/authGuard');
+
+// Load JSON data
 const jsonFilePath = path.join(__dirname, '../seeds/musicData.json');
 const songData = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'));
 
 router.get("/", withGuard, async (req, res) => {
   try {
-    // Fetch the user's playlists
-    const userPlaylists = await Playlist.findAll({
+    // Fetch all playlists for the logged-in user
+    const playlistsData = await Playlist.findAll({
       where: {
         user_id: req.session.user_id,
       },
-      include: [Song],
+      include: [{ model: MusicData }],
     });
 
-    const playlists = userPlaylists.map((playlist) =>
-      playlist.get({ plain: true })
-    );
+    // Map playlists to a plain object to pass to Handlebars
+    const playlists = playlistsData.map((playlist) => {
+      return {
+        id: playlist.id,
+        name: playlist.name,
+        songs: playlist.MusicData.map(song => ({
+          id: song.id,
+          name: song.TrackName,
+          artist: song.ArtistName,
+          album: song.AlbumName,
+          duration: (song.TrackDuration / 60000).toFixed(2), // Convert ms to minutes
+        })),
+      };
+    });
 
-    // Fetch trending songs
-    const trendingSongs = songData.slice(0, 10).map(song => ({
-      image: song['Album Image URL'],
-      title: song['Track Name'],
-      artist: song['Artist Name(s)'],
-      genre: song['Artist Genres'],
-      duration: (song['Track Duration (ms)'] / 60000).toFixed(2)
+    // Process JSON data to get popular songs
+    const popularSongs = songData.map(song => ({
+      id: song.id,
+      title: song.TrackName,
+      artist: song.ArtistName,
+      album: song.AlbumName,
+      dateReleased: song.AlbumReleaseDate,
+      duration: (song.TrackDuration / 60000).toFixed(2) // Convert ms to minutes
     }));
 
-    // Fetch popular categories
-    const categories = ['Inspiring', 'Happy', 'Fun', 'Hip Hop', 'Cinematic', 'Chill', 'Calm', 'Upbeat', 'Hopeful', 'Electronic'];
-
-    // Render the data to the page-one template
+    // Pass data to the Handlebars template
     res.render("page-one", {
       loggedIn: req.session.logged_in,
       playlists,
-      trendingSongs,
-      categories
+      popularSongs,
     });
   } catch (err) {
+    console.error(err);
     res.status(500).json(err);
   }
 });
