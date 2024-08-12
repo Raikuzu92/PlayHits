@@ -2,6 +2,7 @@
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: Arial, sans-serif;
   color: white;
   background-image: url('/images/background-image.png');
@@ -10,6 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
 }
 
 /* Header */
@@ -18,15 +20,6 @@ body {
   padding: 20px;
   text-align: center;
   color: #4750FF;
-}
-
-/* Footer */
-#footer {
-  background-color: transparent;
-  padding: 10px 20px;
-  text-align: center;
-  color: #4750FF;
-  margin-top: auto;
 }
 
 /* Navbar */
@@ -167,8 +160,6 @@ form button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  width: 1000px;
   margin-top: 75px;
 }
 
@@ -253,8 +244,6 @@ form button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  width: 1000px;
   margin-top: 75px;
 }
 
@@ -350,9 +339,73 @@ form button:hover {
   color: #858bff; 
 }
 
-.container-fluid {
-  padding-top: 20px;
+
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
+  .login-container,
+  .signup-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;
+  }
+
+  .login-card,
+  .signup-card {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .login-left,
+  .signup-left {
+    width: 100%;
+    padding: 30px 20px;
+    text-align: center; /* Center align the content */
+  }
+
+  .login-right,
+  .signup-right {
+    width: 100%;
+    padding: 30px 20px;
+  }
+
+  .login-icon,
+  .signup-icon {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+  }
+
+  .login-title,
+  .signup-title {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .form-group,
+  .signup-form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-input,
+  .signup-form-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .login-button,
+  .signup-button {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .forgot-password,
+  .signup-link {
+    font-size: 0.8rem;
+  }
 }
+
 
 .search-bar input {
   width: 100%;
@@ -384,4 +437,125 @@ form button:hover {
 
 .border-left {
   border-left: 2px solid #4750FF;
+}
+
+/* Container and Row adjustments */
+.row.g-3 {
+  display: flex;
+  gap: 20px;
+}
+
+/* Left Column: Playlists */
+#playlist-column h3 {
+  border-bottom: 2px solid #4750FF;
+  padding-bottom: 10px;
+}
+
+#playlist-column .list-group-item {
+  transition: background-color 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+
+#playlist-column .list-group-item:hover {
+  background-color: #333;
+  transform: translateX(5px);
+}
+
+/* Center Column: Song Search and List */
+#songs-column .search-bar input {
+  background-color: transparent;
+  border: 2px solid #4750FF;
+  color: white;
+}
+
+#songs-column .search-bar input::placeholder {
+  color: #b8b8b8;
+}
+
+#songs-column .search-bar button {
+  background-color: #4750FF;
+  border: none;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+#songs-column .search-bar button:hover {
+  background-color: #3b44e4;
+}
+
+.song-item h5 {
+  font-weight: bold;
+  color: #4750FF;
+}
+
+.song-item p {
+  margin: 0;
+}
+
+.song-item .btn {
+  border: 2px solid #4750FF;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.song-item .btn:hover {
+  background-color: #4750FF;
+  color: #fff;
+}
+
+/* Right Column: Song Details */
+#song-details-column h4 {
+  border-bottom: 2px solid #4750FF;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.song-details img {
+  border: 2px solid #4750FF;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Ensure the form container uses flexbox for horizontal alignment */
+.search-form {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 100%; /* Adjust the width as needed */
+  margin-top: 20px; /* Adjust the top margin as needed */
+}
+
+.search-form .form-control {
+  flex: 1; /* Take up available space */
+  background-color: transparent;
+  border: 2px solid #4750FF;
+  color: white;
+  padding: 10px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.search-form .btn {
+  background-color: #4750FF;
+  border: none;
+  padding: 12px 20px;
+  color: white;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+  transition: background-color 0.3s ease;
+  outline: none;
+}
+
+.search-form .btn:hover {
+  background-color: #3b44e4;
+}
+
+
+/* Footer adjustment */
+#footer {
+  background-color: transparent;
+  padding: 20px 0;
+  color: #4750FF;
+  border-top: 2px solid #4750FF;
+  margin-top: auto;
+  width: 100%;
 }

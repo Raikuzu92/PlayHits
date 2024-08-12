@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div>
     <div class="row">
         <!-- Left Column: Your Playlists -->
-        <div class="col-md-3 bg-dark text-white p-4" id="playlist-column">
+        <div class="col-md-3 bg-dark text-white p-4 border-right" id="playlist-column">
             <h3>Your Playlists</h3>
             {{#if playlists.length}}
                 <ul class="list-group">
@@ -18,10 +18,11 @@
 
         <!-- Center Column: All Songs -->
         <div class="col-md-6 p-4" id="songs-column">
-            <div class="search-bar">
-                <input type="text" class="form-control" id="song-search" placeholder="Search for a song...">
-            </div>
-            <button class="btn" id="search-button">Search</button>
+<form class="search-form">
+  <input type="text" class="form-control" id="song-search" placeholder="Search for a song...">
+  <button class="btn" id="search-button">Search</button>
+</form>
+
             <div id="song-list">
                 {{#each popularSongs}}
                     <div class="song-item row">
@@ -40,7 +41,10 @@
         </div>
 
         <!-- Right Column: Song Details -->
-        <div class="col-md-3 bg-dark text-white p-4" id="song-details-column">
+        <div class="col-md-3 bg-dark text-white p-4 border-left" id="song-details-column">
+            <h4>Song Details</h4>
+            <p>Select a song to view its details.</p>
+            <div class="song-details">
             <!-- Details will be dynamically loaded here -->
         </div>
     </div>
