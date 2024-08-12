@@ -11,15 +11,13 @@ Playlist.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.STRING,
-    },
-    image_url: {
-      type: DataTypes.STRING,
+    artist_name: {
+      type: DataTypes.ARRAY(DataTypes.STRING), // Adjusted to handle multiple names
+      allowNull: true,
     },
   },
   {
