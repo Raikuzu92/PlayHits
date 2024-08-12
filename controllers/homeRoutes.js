@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const bcrypt = require("bcrypt");
 // Import any models you plan to use for data's routes here
 const { User } = require("../models/");
 
@@ -37,4 +37,56 @@ router.get("/signup", (req, res) => {
   }
 });
 
+// Post to login
+router.post("/login", async (req, res) => {
+  try {
+    // Search the DB for a user with the provided email
+    const userData = await User.findOne({ where: { email: req.body.email } });
+    if (!userData) {
+      // Error message if no user is found
+      res.status(404).json({ message: "Login failed. Please try again!" });
+      return;
+    }
+
+    // Use `bcrypt.compare()` to compare the provided password and the hashed password
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      userData.password
+    );
+
+    // If passwords do not match, return error message
+    if (!validPassword) {
+      res.status(400).json({ message: "Login failed. Please try again!!" });
+      return;
+    }
+
+    // If passwords do match, save session and redirect to page-one
+    req.session.save(() => {
+      req.session.user_id = userData.id; // Store user ID in session
+      req.session.logged_in = true; // Set logged_in to true
+      res.redirect("/page-one"); // Redirect to the desired page
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.post("/signup", async (req, res) => {
+  try {
+    const newUser = await User.create({
+      email: req.body.email,
+      username: req.body.username, // If your form includes a username
+      password: req.body.password,
+    });
+
+    req.session.save(() => {
+      req.session.user_id = newUser.id;
+      req.session.logged_in = true;
+      res.redirect("/page-one");
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 module.exports = router;
