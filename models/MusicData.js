@@ -14,7 +14,6 @@ MusicData.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    // Reminder- Add any new columns to the ExampleData model here
     track_uri: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -163,7 +162,7 @@ MusicData.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "data one",
+    modelName: "musicdata",
   }
 );
 

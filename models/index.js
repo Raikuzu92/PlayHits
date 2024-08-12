@@ -1,16 +1,41 @@
-// import all models here
-const User = require("./User");
-const ExampleData = require("./MusicData");
+// models/index.js
 
-// Reminder- create any additional associations here
-ExampleData.belongsTo(User, {
-  foreignKey: "userId",
-  onDelete: "CASCADE",
+const User = require('./User');
+const Playlist = require('./Playlist');
+const Song = require('./MusicData');
+const Category = require('./Category');
+
+// A user can have multiple playlists
+User.hasMany(Playlist, {
+  foreignKey: 'user_id',
 });
 
-User.hasMany(ExampleData, {
-  foreignKey: "userId",
+// A playlist belongs to one user
+Playlist.belongsTo(User, {
+  foreignKey: 'user_id',
 });
 
-// export all models here
-module.exports = { User, ExampleData };
+// A playlist can have many songs
+Playlist.hasMany(Song, {
+  foreignKey: 'playlist_id',
+});
+
+// A song belongs to one playlist
+Song.belongsTo(Playlist, {
+  foreignKey: 'playlist_id',
+});
+
+// You can also add relationships for categories if needed
+// A song can belong to many categories
+Song.belongsToMany(Category, {
+  through: 'SongCategory',
+  foreignKey: 'song_id',
+});
+
+// A category can have many songs
+Category.belongsToMany(Song, {
+  through: 'SongCategory',
+  foreignKey: 'category_id',
+});
+
+module.exports = { User, Playlist, Song, Category };

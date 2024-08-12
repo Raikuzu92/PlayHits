@@ -1,22 +1,58 @@
-<div>
-    {{!-- Reminder: examples comes from the data being passed in the res.render on homeRoutes.js! --}}
+<div class="container text-center text-white">
+    <h1 class="display-4 mt-5">THE BEST WAY TO GET YOUR FAVORITE MUSIC</h1>
+    <p><a href="/signup" class="btn btn-link text-#4750FF">Sign Up for Free →</a></p>
 
-  {{#each examples}}
-  {{!-- Reminder- this is a partial! Handlebars will render the code located in items.handlebars in the /partials/ directory! --}}
-    {{>items}}
-  {{/each}}
+    <form class="d-inline-block mt-4" style="max-width: 800px; width: 100%;">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for your Favorite Songs">
+            <button class="btn-#4750FF text-white" type="submit">Search</button>
+        </div>
+    </form>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-music"></i> <!-- Replace with appropriate icon -->
+                    </div>
+                    <h5 class="card-title">Create Playlist</h5>
+                    <p class="card-content">Easily create and manage your music playlists.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-fire"></i> <!-- Replace with appropriate icon -->
+                    </div>
+                    <h5 class="card-title">See What's Trending</h5>
+                    <p class="card-content">Stay updated with the latest trending tracks.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-music"></i> <!-- Replace with appropriate icon -->
+                    </div>
+                    <h5 class="card-title">1000+ Songs</h5>
+                    <p class="card-content">Access a library of over 1000 songs from 1960s to Now.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- New "View All Music" Button -->
+    <div class="mt-5 text-center">
+        <a href="/page-one" class="btn btn-lg btn-primary text-white">View All Music</a>
+    </div>
+
+    <div class="mt-5">
+        <p class="lead">ALL IN ONE PLACE</p>
+        <p>To get started just → <a href="/signup" class="text-#4750FF">Sign Up</a> ← and Explore</p>
+    </div>
 </div>
-
-<div>
-  <div>
-    <h2>Create New Message</h2>
-  </div>
-  <form id="new-data-form">
-    <label for="data-message">Message</label>
-    <textarea name="data-message" ></textarea>
-
-    <button type="submit">Create</button>
-  </form>
-</div>
-
-<script src="/js/newData.js"></script>
