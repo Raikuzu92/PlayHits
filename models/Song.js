@@ -16,20 +16,20 @@ Song.init(
     },
     track_uri: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
+      allowNull: true,
+      
     },
     track_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     artist_uri: {
       type: DataTypes.ARRAY(DataTypes.STRING), // Adjusted to handle multiple URIs
-      allowNull: false,
+      allowNull: true,
     },
     artist_name: {
       type: DataTypes.ARRAY(DataTypes.STRING), // Adjusted to handle multiple names
-      allowNull: false,
+      allowNull: true,
     },
     album_uri: {
       type: DataTypes.STRING,
