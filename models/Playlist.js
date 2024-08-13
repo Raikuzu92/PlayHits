@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
 // Define the Playlist model
 class Playlist extends Model { }
@@ -27,6 +27,13 @@ Playlist.init(
     }
   },
   {
+    hooks: {
+      beforeCreate: async (playlist, session) => {
+        const userId = session.user_id || 1; // Default userId if not provided
+        console.log("User ID:", userId);
+        playlist.user_id = userId;
+      },
+    },
     sequelize,
     timestamps: false,
     freezeTableName: true,

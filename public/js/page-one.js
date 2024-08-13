@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     // Select DOM elements
     const playlistContainer = document.querySelector("#playlist-container");
     const searchInput = document.querySelector("#search-input");
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Handle adding the song to a playlist
         }
     });
+  });
 
     // Event listener for search form submission with debounce
     const handleSearch = debounce(async function (query) {
@@ -63,12 +65,14 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>Total Songs: ${playlistData.songs.length}</p>
             <p>Total Runtime: ${calculateTotalRuntime(playlistData.songs)}</p>
             <ol>
-                ${playlistData.songs.map(song => `
+                ${playlistData.Songs.map(
+                  (song) => `
                     <li>
                         ${song.name} - ${song.artist} (${song.album})
                         <span class="duration">${song.duration} min</span>
                     </li>
-                `).join('')}
+                `
+                ).join("")}
             </ol>
         `;
         playlistContainer.setAttribute("role", "region");
@@ -86,7 +90,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>Date Released: ${songData.dateReleased}</p>
             <p>Duration: ${songData.trackDuration}</p>
             <p>Explicit: ${songData.explicit ? "Yes" : "No"}</p>
-            <p><a href="${songData.trackUri}" target="_blank">Listen on Spotify</a></p>
+            <p><a href="${
+              songData.track_uri
+            }" target="_blank">Listen on Spotify</a></p>
         `;
         songDetailsContainer.setAttribute("role", "region");
         songDetailsContainer.setAttribute("aria-labelledby", "song-details-heading");
@@ -102,7 +108,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <span class="duration">${song.duration} min</span>
                     <button class="add-to-playlist-btn" data-id="${song.id}">+</button>
                 </div>
-            `).join('')}
+            `
+              )
+              .join("")}
         `;
         searchResultsContainer.setAttribute("role", "list");
     }
