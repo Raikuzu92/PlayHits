@@ -64,7 +64,7 @@ router.post("/login", async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id; // Store user ID in session
       req.session.logged_in = true; // Set logged_in to true
-      res.redirect("/page-one"); // Redirect to the desired page
+      // res.redirect("/page-one"); // Redirect to the desired page
     });
   } catch (err) {
     res.status(500).json(err);
@@ -82,11 +82,13 @@ router.post("/signup", async (req, res) => {
     req.session.save(() => {
       req.session.user_id = newUser.id;
       req.session.logged_in = true;
-      res.redirect("/page-one");
+      // res.redirect("/page-one");
     });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
+
+
 module.exports = router;
