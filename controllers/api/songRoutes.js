@@ -6,18 +6,38 @@ const { Song } = require("../../models");
 // protects routes from non-logged in users
 const { apiGuard } = require("../../utils/authGuard");
 //tested in insomnia !!!
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const musicDataList = await Song.findAll({});
-    
-    res.json(musicDataList);  // Return the fetched data
+
+    res.json(musicDataList); // Return the fetched data
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
 
+// Route to get a specific song by its ID
+router.get("/:id", async (req, res) => {
+  try {
+    const songId = req.params.id; // Get the songId from the request parameters
+    const songData = await Song.findOne({
+      where: {
+        id: songId,
+      },
+    });
 
+    if (!songData) {
+      res.status(404).json({ message: "Song not found" });
+      return;
+    }
+
+    res.json(songData); // Return the song data as a JSON response
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 //tested in insomnia !!!
 router.post("/", apiGuard, async (req, res) => {

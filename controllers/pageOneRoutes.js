@@ -12,6 +12,7 @@ const { withGuard } = require("../utils/authGuard");
 const jsonFilePath = path.join(__dirname, "../seeds/musicData.json");
 const songData = JSON.parse(fs.readFileSync(jsonFilePath, "utf8"));
 
+// Display playlists and popular songs as soon as the page loads
 router.get("/", withGuard, async (req, res) => {
   try {
     // Fetch all playlists for the logged-in user
@@ -24,20 +25,22 @@ router.get("/", withGuard, async (req, res) => {
     console.log(playlistsData);
     // Map playlists to a plain object to pass to Handlebars
     const playlists = playlistsData.map((playlist) => {
-      const totalSeconds = Math.floor(song.track_duration_ms / 1000); // Convert ms to seconds
-      const minutes = Math.floor(totalSeconds / 60); // Get whole minutes
-      const seconds = totalSeconds % 60; // Get the remainder seconds
       return {
         id: playlist.id,
         name: playlist.title,
         songs: playlist.Songs
-          ? playlist.Songs.map((song) => ({
-              id: song.id,
-              name: song.track_name,
-              artist: song.artist_name,
-              album: song.album_name,
-              duration: `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`, // Convert ms to minutes
-            }))
+          ? playlist.Songs.map((song) => {
+              const totalSeconds = Math.floor(song.track_duration_ms / 1000); // Convert ms to seconds
+              const minutes = Math.floor(totalSeconds / 60); // Get whole minutes
+              const seconds = totalSeconds % 60; // Get the remainder seconds
+              return {
+                id: song.id,
+                name: song.track_name,
+                artist: song.artist_name,
+                album: song.album_name,
+                duration: `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`, // Convert ms to minutes
+              };
+            })
           : [],
       };
     });

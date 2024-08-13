@@ -27,7 +27,7 @@
                 {{#each songs}}
                     <div class="song-item row">
                         <div class="col-9">
-                            <h5>{{this.title}} - {{this.artist}}</h5>
+                            <h5><a href="javascript:void(0);" class="song-title" data-song-id="{{this.id}}">{{this.title}} - {{this.artist}}</a></h5>
                             <p>{{this.album}} | Released: {{this.dateReleased}} | Duration: {{this.duration}} mins</p>
                         </div>
                         <div class="col-3 text-end">
