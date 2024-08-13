@@ -18,13 +18,13 @@
 
         <!-- Center Column: All Songs -->
         <div class="col-md-6 p-4" id="songs-column">
-<form class="search-form">
-  <input type="text" class="form-control" id="song-search" placeholder="Search for a song...">
+<form class="search-form" action="/pageOne/search" method="GET">
+  <input type="text" class="form-control" name="q" id="song-search" placeholder="Search for a song...">
   <button class="btn" id="search-button">Search</button>
 </form>
 
             <div id="song-list">
-                {{#each popularSongs}}
+                {{#each songs}}
                     <div class="song-item row">
                         <div class="col-9">
                             <h5>{{this.title}} - {{this.artist}}</h5>
