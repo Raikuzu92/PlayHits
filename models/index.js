@@ -15,7 +15,7 @@ Playlist.belongsTo(User, {
 });
 
 // A playlist can have many songs
-Playlist.hasToMany(Song, {
+Playlist.belongsToMany(Song, {
   through: "PlaylistSongs",
 });
 
