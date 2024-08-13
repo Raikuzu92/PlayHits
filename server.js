@@ -9,6 +9,7 @@ const exphbs = require("express-handlebars");
 // Local Modules
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
+const User = require("./models/User"); // Adjust the path to your User model
 
 // Initializes Sequelize with session store
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -24,21 +25,14 @@ const hbs = exphbs.create();
 // Sets up session and connect to our Sequelize db
 const sess = {
   secret: "Pandas are awesome",
-  // Express session will use cookies by default, but you can specify options for those cookies by adding a 'cookies' property to your session options
   cookie: {
-    // Sets the maximum age for the cookie to be valid. Here, the cookie (and session) will expire after one day. The time should be given in milliseconds.
-    // 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
     maxAge: 24 * 60 * 60 * 1000,
-    // Only store session cookies when the protocol being used to connect to the server is HTTP
     httpOnly: true,
-    // secure tells express-session to only initialize session cookies when the protocol being used is HTTPS. Having this set to true and running a server without encryption will result in the cookies not showing up in your developer console.
     secure: false,
-    // Only initialize session cookies when the referrer provided by the client matches the domain the server is hosted from
     sameSite: "strict",
   },
   resave: false,
   saveUninitialized: true,
-  // sets up session store
   store: new SequelizeStore({
     db: sequelize,
   }),
@@ -60,11 +54,26 @@ app.use(express.static(path.join(__dirname, "public")));
 // sets up routes
 app.use(routes);
 
+// Add signup route handler
+app.post('/api/users', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    await User.create({ username, password });
+    res.status(200).json({ message: 'Signup successful' });
+  } catch (error) {
+    if (error.name === 'SequelizeValidationError') {
+      const errorMessage = error.errors.map(err => err.message).join(', ');
+      res.status(400).json({ message: errorMessage });
+    } else {
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
+});
+
+// Add a test route for page-one
 app.get('/page-one', (req, res) => {
   res.render('page-one'); // Ensure you have a 'views/page-one.handlebars' file
 });
-
-
 
 // connects database then starts express.js server
 sequelize.sync({ force: false }).then(() => {

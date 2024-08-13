@@ -1,8 +1,10 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Playlist extends Model {}
+// Define the Playlist model
+class Playlist extends Model { }
 
+// Initialize the Playlist model
 Playlist.init(
   {
     id: {
@@ -19,6 +21,10 @@ Playlist.init(
       type: DataTypes.ARRAY(DataTypes.STRING), // Adjusted to handle multiple names
       allowNull: true,
     },
+    user_id: { // Corrected to 'user_id' to match the column name
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   },
   {
     hooks: {
@@ -32,8 +38,18 @@ Playlist.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "playlist",
+    modelName: 'playlist',
+
+    hooks: {
+      beforeCreate: async (playlist, session) => {
+        const userId = session.user_id || 1; // Default userId if not provided
+        console.log("User ID:", userId);
+        playlist.user_id = userId;
+      },
+    },
   }
 );
+
+// Add a hook to run before creating a Playlist
 
 module.exports = Playlist;
