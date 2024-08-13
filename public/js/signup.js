@@ -3,6 +3,7 @@ const signupFormHandler = async function (event) {
 
   const usernameEl = document.querySelector("#username-input-signup").value.trim();
   const passwordEl = document.querySelector("#password-input-signup").value.trim();
+  const emailEl = document.querySelector("#email-input-signup").value.trim();
   
   const usernameFeedback = document.querySelector("#username-feedback");
   const passwordFeedback = document.querySelector("#password-feedback");
@@ -19,6 +20,13 @@ const signupFormHandler = async function (event) {
     isValid = false;
   }
 
+  // Email validation
+  if (!emailEl.includes('@')) {
+    emailFeedback.textContent = 'Please enter a valid email address.';
+    isValid = false;
+  }
+
+  // Password validation
   if (passwordEl.length < 8) {
     passwordFeedback.textContent = 'Password must be at least 8 characters long.';
     isValid = false;
@@ -26,21 +34,23 @@ const signupFormHandler = async function (event) {
 
   if (isValid) {
     try {
-      const response = await fetch("/api/users", {
+      console.log(usernameEl, emailEl, passwordEl);
+
+      const user = { username: usernameEl, email: emailEl, password: passwordEl };
+
+      const response = await fetch("/signup", {
         method: "POST",
-        body: JSON.stringify({
-          username: usernameEl,
-          password: passwordEl,
-        }),
+        body: JSON.stringify(user),       
         headers: { "Content-Type": "application/json" },
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        document.location.replace("/");
+        document.location.replace("/pageOne");
       } else {
         // Display server-side validation errors
+        console.log(result.message);
         passwordFeedback.textContent = result.message || 'Failed to sign up';
       }
     } catch (error) {

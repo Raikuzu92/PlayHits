@@ -1,41 +1,46 @@
 <div>
+    <!-- Include Intro.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css">
+    
+
     <div class="row">
         <!-- Left Column: Your Playlists -->
         <div class="col-md-3 bg-dark text-white p-4 border-right" id="playlist-column">
             <h3>Your Playlists</h3>
             {{#if playlists.length}}
-                <ul class="list-group">
-                    {{#each playlists}}
-                        <li class="list-group-item bg-dark text-white" data-playlist-id="{{this.id}}">
-                            {{this.name}}
-                        </li>
-                    {{/each}}
-                </ul>
+            <ul class="list-group">
+                {{#each playlists}}
+                <li class="list-group-item bg-dark text-white" data-playlist-id="{{this.id}}">
+                    {{this.name}}
+                </li>
+                {{/each}}
+            </ul>
             {{else}}
-                <p>Whoops, looks like you don't have any playlists yet.</p>
+            <p>Whoops, looks like you don't have any playlists yet.</p>
             {{/if}}
         </div>
 
         <!-- Center Column: All Songs -->
         <div class="col-md-6 p-4" id="songs-column">
-<form class="search-form" action="/pageOne/search" method="GET">
-  <input type="text" class="form-control" name="q" id="song-search" placeholder="Search for a song...">
-  <button class="btn" id="search-button">Search</button>
-</form>
+            <form class="search-form" action="/pageOne/search" method="GET">
+                <input type="text" class="form-control" name="q" id="song-search" placeholder="Search for a song...">
+                <button class="btn" id="search-button">Search</button>
+            </form>
 
             <div id="song-list">
                 {{#each songs}}
-                    <div class="song-item row">
-                        <div class="col-9">
-                            <h5><a href="javascript:void(0);" class="song-title" data-song-id="{{this.id}}">{{this.title}} - {{this.artist}}</a></h5>
-                            <p>{{this.album}} | Released: {{this.dateReleased}} | Duration: {{this.duration}} mins</p>
-                        </div>
-                        <div class="col-3 text-end">
-                            <button class="btn btn-outline-light add-to-playlist-btn" data-song-id="{{this.id}}">
-                                <i class="fas fa-plus"></i> Add to Playlist
-                            </button>
-                        </div>
+                <div class="song-item row">
+                    <div class="col-9">
+                        <h5><a href="javascript:void(0);" class="song-title" data-song-id="{{this.id}}">{{this.title}} -
+                                {{this.artist}}</a></h5>
+                        <p>{{this.album}} | Released: {{this.dateReleased}} | Duration: {{this.duration}} mins</p>
                     </div>
+                    <div class="col-3 text-end">
+                        <button class="btn btn-outline-light add-to-playlist-btn" data-song-id="{{this.id}}">
+                            <i class="fas fa-plus"></i> Add to Playlist
+                        </button>
+                    </div>
+                </div>
                 {{/each}}
             </div>
         </div>
@@ -45,7 +50,10 @@
             <h4>Song Details</h4>
             <p>Select a song to view its details.</p>
             <div class="song-details">
-            <!-- Details will be dynamically loaded here -->
+                <!-- Details will be dynamically loaded here -->
+            </div>
         </div>
     </div>
+    <!-- Include Intro.js JavaScript -->
+    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
 </div>

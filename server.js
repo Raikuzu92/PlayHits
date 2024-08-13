@@ -54,27 +54,6 @@ app.use(express.static(path.join(__dirname, "public")));
 // sets up routes
 app.use(routes);
 
-// Add signup route handler
-app.post('/api/users', async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    await User.create({ username, password });
-    res.status(200).json({ message: 'Signup successful' });
-  } catch (error) {
-    if (error.name === 'SequelizeValidationError') {
-      const errorMessage = error.errors.map(err => err.message).join(', ');
-      res.status(400).json({ message: errorMessage });
-    } else {
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
-  }
-});
-
-// Add a test route for page-one
-app.get('/page-one', (req, res) => {
-  res.render('page-one'); // Ensure you have a 'views/page-one.handlebars' file
-});
-
 // connects database then starts express.js server
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () =>

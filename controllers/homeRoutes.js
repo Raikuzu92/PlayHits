@@ -73,6 +73,10 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
+
+  console.log('attempting to create user');
+  console.log(req.body);
+
   try {
     const newUser = await User.create({
       email: req.body.email,
@@ -83,8 +87,10 @@ router.post("/signup", async (req, res) => {
     req.session.save(() => {
       req.session.user_id = newUser.id;
       req.session.logged_in = true;
-      res.redirect("/pageOne");
+
     });
+    res.status(200).json(newUser);
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
