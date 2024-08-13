@@ -1,161 +1,144 @@
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PlayHits</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlayHits</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css" />
-    <style>
-      .video-background { position: fixed; top: 0; left: 0; width: 100%; height:
-      100%; object-fit: cover; z-index: -1; } main { position: relative;
-      z-index: 1; } nav { position: relative; z-index: 10; }
-    </style>
-  </head>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height:
+        100%;
+      object-fit: cover;
+      z-index: -1;
+    }
 
-  <body>
+    main {
+      position: relative;
+      z-index: 1;
+    }
 
-    <div>
-      <video
-        class="video-background"
-        autoplay
-        loop
-        muted
-        style="width: 100%; height: auto; max-height: 100vh;"
-      >
-        <source src="/images/waves.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
+    nav {
+      position: relative;
+      z-index: 10;
+    }
+  </style>
+</head>
 
-    <div class="d-flex flex-wrap">
+<body>
 
-      <main class="container mt-5">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="signup-container" style="margin-top: 110px;">
-              <div class="signup-card">
-                <img
-                  src="/images/playhitsLogo.png"
-                  alt="PlayHits Logo"
-                  style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); max-width: 100px; height: auto; border-radius: 55px; z-index: 1;"
-                />
-                <div
-                  style="border-radius: 8px; padding: 20px; margin: 30px; max-width: 600px;"
-                >
-                  <p
-                    style="line-height: 1.6; color: #e0e0e0; font-size: 20px; font-family: Arial, sans-serif; text-align: justify; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);"
-                  >
-                    Welcome to
-                    <a
-                      href="/page-one"
-                      style="color: #d000ff; text-decoration: none; font-weight: bold;"
-                    >PlayHits</a>, the ultimate place for discovering and
-                    sharing the most enjoyable and upbeat playlists! At
-                    PlayHits, you can create your own playlist with all your
-                    favorite artists, genres, or albums.
-                  </p>
-                  <p
-                    style="line-height: 1.6; color: #e0e0e0; font-size: 20px; font-family: Arial, sans-serif; text-align: justify; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);"
-                  >
-                    You can mix and mash to create spicy combinations or keep it
-                    all clean with similar genres. Explore others’ playlists and
-                    get a glimpse into their world.
-                  </p>
+  <div>
+    <video class="video-background" autoplay loop muted style="width: 100%; height: auto; max-height: 100vh;">
+      <source src="/images/waves.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
-                  <p
-                    style="line-height: 1.6; color: #e0e0e0; font-size: 20px; font-family: Arial, sans-serif; text-align: justify; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);"
-                  >
-                    Who knows? You may even like what they share and discover
-                    new and amazing music!</p>
-                </div>
+  <div class="d-flex flex-wrap">
 
+    <main class="container mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="signup-container" style="margin-top: 110px;">
+            <div class="signup-card">
+              <img src="/images/playhitsLogo.png" alt="PlayHits Logo"
+                style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); max-width: 100px; height: auto; border-radius: 55px; z-index: 1;" />
+              <div style="border-radius: 8px; padding: 20px; margin: 30px; max-width: 600px;">
+                <p
+                  style="line-height: 1.6; color: #e0e0e0; font-size: 20px; font-family: Arial, sans-serif; text-align: justify; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">
+                  Welcome to
+                  <a href="/page-one" style="color: #d000ff; text-decoration: none; font-weight: bold;">PlayHits</a>,
+                  the ultimate place for discovering and
+                  sharing the most enjoyable and upbeat playlists! At
+                  PlayHits, you can create your own playlist with all your
+                  favorite artists, genres, or albums.
+                </p>
+                <p
+                  style="line-height: 1.6; color: #e0e0e0; font-size: 20px; font-family: Arial, sans-serif; text-align: justify; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">
+                  You can mix and mash to create spicy combinations or keep it
+                  all clean with similar genres. Explore others’ playlists and
+                  get a glimpse into their world.
+                </p>
+
+                <p
+                  style="line-height: 1.6; color: #e0e0e0; font-size: 20px; font-family: Arial, sans-serif; text-align: justify; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">
+                  Who knows? You may even like what they share and discover
+                  new and amazing music!</p>
               </div>
 
             </div>
-          </div>
 
-          <div class="col-md-6">
-            <div class="signup-container">
-              <div class="signup-card">
-                <div class="signup-right">
-                  <h2 class="signup-title">Ready to join us?</h2>
-                  <form action="/signup" method="POST">
-                    <div class="form-group">
-                      <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        class="form-input"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        class="form-input"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        class="form-input"
-                      />
-                    </div>
-                    <button type="submit" class="signup-button">SIGN UP</button>
-                  </form>
-                  <a href="/login" class="signup-link">Already have an Account?
-                    Login →</a>
-                </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="signup-container">
+            <div class="signup-card">
+              <div class="signup-right">
+                <h2 class="signup-title">Ready to join us?</h2>
+                <form action="/signup" method="POST">
+                  <div class="form-group">
+                    <input type="text" name="username" placeholder="Username" class="form-input" />
+                  </div>
+                  <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" class="form-input" />
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" class="form-input" />
+                  </div>
+                  <button type="submit" class="signup-button">SIGN UP</button>
+                </form>
+                <a href="/login" class="signup-link">Already have an Account?
+                  Login →</a>
               </div>
             </div>
           </div>
         </div>
-        <div style="position: relative; min-height: 100vh;">
+      </div>
+      <div style="position: relative; min-height: 100vh;">
 
-          <audio
-            id="audioPlayer"
-            controls
-            style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10;"
-          >
-            <source id="audioSource" src="" type="audio/mp3" />
-            Your browser does not support the audio element.
-          </audio>
+        <audio id="audioPlayer" controls
+          style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10;">
+          <source id="audioSource" src="" type="audio/mp3" />
+          Your browser does not support the audio element.
+        </audio>
 
-        </div>
+      </div>
 
-      </main>
-    </div>
+    </main>
+  </div>
 
-    {{#if loggedIn}}
-      <script src="/js/logout.js"></script>
-    {{/if}}
-    <!-- Bootstrap JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    ></script>
-    {{! }}
+  {{#if loggedIn}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  {{! }}
 
-    <script>
-      async function loadMusicData() { try { const response = await
-      fetch('seeds/musicData.json'); const musicData = await response.json();
-      const randomIndex = Math.floor(Math.random() * musicData.length); const
-      track = musicData[randomIndex]; } catch (error) { console.error('Error
-      loading music data:', error); } } window.onload = loadMusicData;
-    </script>
+  <script>
+    async function loadMusicData() {
+      try {
+        const response = await
+          fetch('seeds/musicData.json'); const musicData = await response.json();
+        const randomIndex = Math.floor(Math.random() * musicData.length); const
+          track = musicData[randomIndex];
+      } catch (error) {
+        console.error('Error 
+      loading music data: ', error); } } window.onload = loadMusicData;
+        )}
+    }
+  </script>
 
-    {{! }}
-  </body>
+  {{! }}
+</body>
 
 </html>
