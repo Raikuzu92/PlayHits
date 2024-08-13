@@ -549,6 +549,27 @@ form button:hover {
   background-color: #3b44e4;
 }
 
+.feedback-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 0.5em;
+}
+
+#password-input-signup.is-invalid {
+  border-color: red;
+  background-color: #ffe6e6; /* Light red background */
+}
+
+#password-input-signup.is-invalid::placeholder {
+  color: red;
+}
+
+/* Optional: For better feedback visibility */
+.feedback-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
 
 /* Footer adjustment */
 #footer {

@@ -6,7 +6,7 @@ const songRoutes = require("./songRoutes");
 const playlistRoutes = require("./playlistRoutes")
 
 // Connect the routes to the router here
-router.use("/users", userRoutes);
+// router.use("/users", userRoutes);
 router.use("/songData", songRoutes);
 router.use("/playlists", playlistRoutes);
 
