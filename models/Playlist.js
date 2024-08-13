@@ -1,8 +1,10 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
+// Define the Playlist model
 class Playlist extends Model {}
 
+// Initialize the Playlist model
 Playlist.init(
   {
     id: {
@@ -19,6 +21,10 @@ Playlist.init(
       type: DataTypes.ARRAY(DataTypes.STRING), // Adjusted to handle multiple names
       allowNull: true,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   },
   {
     sequelize,
@@ -28,5 +34,11 @@ Playlist.init(
     modelName: 'playlist',
   }
 );
+
+// Add a hook to run before creating a Playlist
+Playlist.addHook('beforeCreate', async (playlist, session) => {
+  const userId = session.userId || 1; // Default userId if not provided
+  playlist.userId = userId;
+});
 
 module.exports = Playlist;
