@@ -115,35 +115,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  function renderNewPlaylist(playlist) {
-    const playlistContainer = document.querySelector(
-      "#playlist-column .list-group"
-    );
-
-    // If there are no playlists, remove the "Whoops" message and create the list group
-    if (!playlistContainer) {
-      const newListGroup = document.createElement("ul");
-      newListGroup.className = "list-group";
-      document.querySelector("#playlist-column").appendChild(newListGroup);
-
-      const playlistContainer = newListGroup; // Reassign playlistContainer to the new list group
-    }
-
-    const newPlaylistItem = document.createElement("li");
-    newPlaylistItem.className = "list-group-item bg-dark text-white";
-    newPlaylistItem.setAttribute("data-playlist-id", playlist.id);
-    newPlaylistItem.textContent = playlist.title;
-
-    // Append the new playlist item to the playlist container
-    playlistContainer.appendChild(newPlaylistItem);
-  }
-
   function renderPlaylistDetails(playlistData) {
-    if (!playlistData) return;
-
     const playlistContainer = document.getElementById(
       "playlist-details-container"
     );
+
+    // If no playlistData or container doesn't exist, return early
+    if (!playlistData || !playlistContainer) return;
 
     // Toggle the visibility of the playlist details
     if (playlistContainer.style.display === "block") {
@@ -165,10 +143,31 @@ document.addEventListener("DOMContentLoaded", function () {
             .join("")}
         </ol>
       `;
-      playlistContainer.setAttribute("role", "region");
-      playlistContainer.setAttribute("aria-labelledby", "playlist-heading");
       playlistContainer.style.display = "block";
     }
+  }
+
+  function renderNewPlaylist(playlist) {
+    let playlistContainer = document.querySelector(
+      "#playlist-column .list-group"
+    );
+
+    // If there are no playlists, remove the "Whoops" message and create the list group
+    if (!playlistContainer) {
+      const newListGroup = document.createElement("ul");
+      newListGroup.className = "list-group";
+      document.querySelector("#playlist-column").appendChild(newListGroup);
+
+      playlistContainer = newListGroup; // Assign playlistContainer to the new list group
+    }
+
+    const newPlaylistItem = document.createElement("li");
+    newPlaylistItem.className = "list-group-item bg-dark text-white";
+    newPlaylistItem.setAttribute("data-playlist-id", playlist.id);
+    newPlaylistItem.textContent = playlist.title;
+
+    // Append the new playlist item to the playlist container
+    playlistContainer.appendChild(newPlaylistItem);
   }
 
   // Function to render song details
