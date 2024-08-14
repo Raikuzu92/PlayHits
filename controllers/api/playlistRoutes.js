@@ -104,4 +104,40 @@ router.delete("/:id/song/:songId", async (req, res) => {
   }
 });
 
+router.post("/:id/add-song", async (req, res) => {
+  try {
+    // Step 1: Find the song in your data
+    const songData = {
+      track_name: req.body.track_name,
+      artist_name: req.body.artist_name,
+    };
+    
+    const existingSong = await Song.findOne({
+      where: songData,
+    });
+
+    if (!existingSong) {
+      console.error("Song not found in your data");
+      return res.status(404).json({ error: "Song not found in your data" });
+    }
+
+    // Step 2: Find the playlist by its ID from the request parameters
+    const playlistId = req.params.id;
+    const playlist = await Playlist.findByPk(playlistId);
+
+    if (!playlist) {
+      console.error("Playlist not found");
+      return res.status(404).json({ error: "Playlist not found" });
+    }
+
+    // Step 3: Add the existing song to the playlist
+    await playlist.addSong(existingSong);
+    console.log("Song added to playlist successfully");
+    res.status(200).json({ message: "Song added to playlist successfully" });
+  } catch (error) {
+    console.error("Error adding song to playlist:", error);
+    res.status(500).json({ error: "Error adding song to playlist" });
+  }
+});
+
 module.exports = router;
