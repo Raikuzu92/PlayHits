@@ -6,12 +6,20 @@
     <div class="row">
         <!-- Left Column: Your Playlists -->
         <div class="col-md-3 bg-dark text-white p-4 border-right" id="playlist-column">
-            <h3>Your Playlists</h3>
+            <div class="playlist-header">
+            <h2>Your Playlists</h2>
+             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  +
+</button>
+            </div>
             {{#if playlists.length}}
             <ul class="list-group">
                 {{#each playlists}}
                 <li class="list-group-item bg-dark text-white" data-playlist-id="{{this.id}}">
                     {{this.name}}
+                    <div id="playlist-details-container" style="display: none;">
+                    <!-- Playlist details will be dynamically loaded here -->
+                    </div>
                 </li>
                 {{/each}}
             </ul>
@@ -22,7 +30,7 @@
 
         <!-- Center Column: All Songs -->
         <div class="col-md-6 p-4" id="songs-column">
-            <form class="search-form" action="/pageOne/search" method="GET">
+            <form class="search-form">
                 <input type="text" class="form-control" name="q" id="song-search" placeholder="Search for a song...">
                 <button class="btn" id="search-button">Search</button>
             </form>
@@ -31,8 +39,11 @@
                 {{#each songs}}
                 <div class="song-item row">
                     <div class="col-9">
-                        <h5><a href="javascript:void(0);" class="song-title" data-song-id="{{this.id}}">{{this.title}} -
-                                {{this.artist}}</a></h5>
+    <h5>
+      <a href="javascript:void(0);" class="song-title" data-song-id="{{this.id}}">
+        {{this.title}} - {{this.artist}}
+      </a>
+    </h5>
                         <p>{{this.album}} | Released: {{this.dateReleased}} | Duration: {{this.duration}} mins</p>
                     </div>
                     <div class="col-3 text-end">
@@ -54,6 +65,36 @@
             </div>
         </div>
     </div>
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color: #2a2a2a; color: white;">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Create Your Playlist</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form class="create-playlist-form">
+          <div class="form-group" style="margin-right: 15px;">
+            <label for="playlist-title">Playlist Title</label>
+            <input type="text" class="form-control" id="playlist-title" placeholder="Enter playlist title" style="background-color: #444; color: white; border: 1px solid #555;" required>
+          </div>
+          <div class="form-group" style="margin-right: 15px;">
+            <label for="artist-name">Artist</label>
+            <input type="text" class="form-control" id="artist-name" placeholder="Enter artist name" style="background-color: #444; color: white; border: 1px solid #555;" required>
+          </div>
+      <button type="submit" class="btn btn-primary" style="align-self: flex-end;">Create Playlist</button>
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+</div>
     <!-- Include Intro.js JavaScript -->
     <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
 </div>

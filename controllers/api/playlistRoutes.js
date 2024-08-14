@@ -31,9 +31,13 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", apiGuard, async (req, res) => {
+  console.log(req.body + "--------------------------");
   try {
-    const newPlaylist = Playlist.create(req.body);
+    const newPlaylist = await Playlist.create({
+      ...req.body,
+      user_id: req.session.user_id,
+    });
     // Redirect to playlists page
     res.status(200).json(newPlaylist);
   } catch (err) {
