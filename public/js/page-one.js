@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Select DOM elements
   const playlistContainer = document.querySelector("#playlist-container");
-  const searchInput = document.querySelector("#search-button");
-  const searchResultsContainer = document.querySelector(
-    "#search-results-container"
-  );
+  const searchButton = document.querySelector("#search-button");
+  const searchInput = document.querySelector("#song-search");
+  const searchResultsContainer = document.querySelector("#song-list");
   const songDetailsContainer = document.querySelector(
     "#song-details-container"
   );
@@ -23,7 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const response = await fetch(url);
       if (!response.ok) throw new Error("Network response was not ok");
-      return await response.json();
+
+      const responseData = await response.json();
+      return responseData; // Return the parsed JSON object
     } catch (error) {
       console.error("Fetch error:", error);
       alert("Failed to load data. Please try again later.");
@@ -33,14 +34,17 @@ document.addEventListener("DOMContentLoaded", function () {
   // Event delegation for playlist and song items
   document.body.addEventListener("click", async function (event) {
     if (event.target.matches(".playlist-item")) {
+      event.preventDefault();
       const playlistId = event.target.getAttribute("data-id");
       const playlistData = await fetchData(`/api/playlists/${playlistId}`);
       renderPlaylistDetails(playlistData);
-    } else if (event.target.matches(".song-item")) {
+    } else if (event.target.matches(".song-title")) {
+      event.preventDefault();
       const songId = event.target.getAttribute("data-id");
-      const songData = await fetchData(`/api/songs/${songId}`);
+      const songData = await fetchData(`/api/songData/${songId}`);
       renderSongDetails(songData);
     } else if (event.target.matches(".add-to-playlist-btn")) {
+      event.preventDefault();
       const songId = event.target.getAttribute("data-id");
       // Handle adding the song to a playlist
     }
@@ -53,12 +57,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const searchResults = await fetchData(
         `/pageOne/search?query=${encodeURIComponent(query)}`
       );
-      renderSearchResults(searchResults);
+      renderSearchResults(searchResults.songs);
     }
   }, 300);
 
-  searchInput.addEventListener("click", function (event) {
-    handleSearch(event.target.value.trim());
+  searchButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    const query = searchInput.value.trim();
+    handleSearch(query);
   });
 
   // Function to render playlist details
@@ -89,15 +95,17 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderSongDetails(songData) {
     if (!songData) return;
     songDetailsContainer.innerHTML = `
-            <img src="${songData.albumImageUrl}" alt="${songData.albumName}" />
-            <h3 id="song-details-heading">${songData.songName}</h3>
-            <p>Artist: ${songData.artistName}</p>
-            <p>Album: ${songData.albumName}</p>
-            <p>Date Released: ${songData.dateReleased}</p>
-            <p>Duration: ${songData.trackDuration}</p>
+            <img src="${songData.album_image_url}" alt="${
+      songData.album_name
+    }" />
+            <h3 id="song-details-heading">${songData.track_name}</h3>
+            <p>Artist: ${songData.album_artist_name}</p>
+            <p>Album: ${songData.album_name}</p>
+            <p>Date Released: ${songData.album_release_date}</p>
+            <p>Duration: ${songData.track_duration_ms}</p>
             <p>Explicit: ${songData.explicit ? "Yes" : "No"}</p>
             <p><a href="${
-              songData.trackUri
+              songData.track_uri
             }" target="_blank">Listen on Spotify</a></p>
         `;
     songDetailsContainer.setAttribute("role", "region");
@@ -110,19 +118,38 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to render search results
   function renderSearchResults(searchResults) {
     if (!searchResults) return;
-    searchResultsContainer.innerHTML = `
-            ${searchResults
-              .map(
-                (song) => `
-                <div class="song-item" data-id="${song.id}" tabindex="0" role="listitem">
-                    ${song.title} - ${song.artist} (${song.album})
-                    <span class="duration">${song.duration} min</span>
-                    <button class="add-to-playlist-btn" data-id="${song.id}">+</button>
+    const searchResultsContainer = document.getElementById("song-list");
+    searchResultsContainer.innerHTML = ""; // Clear any existing content
+
+    const html = searchResults
+      .map(
+        (song) => `
+            <div class="song-item row" data-id="${song.id}">
+                <div class="col-9">
+                    <h5>
+                        <a href="javascript:void(0);" class="song-title" data-song-id="${
+                          song.id
+                        }">
+                            ${song.title} - ${song.artist.join(", ")}
+                        </a>
+                    </h5>
+                    <p>${song.album} | Released: ${
+          song.dateReleased
+        } | Duration: ${song.duration} mins</p>
                 </div>
-            `
-              )
-              .join("")}
-        `;
+                <div class="col-3 text-end">
+                    <button class="btn btn-outline-light add-to-playlist-btn" data-song-id="${
+                      song.id
+                    }">
+                        <i class="fas fa-plus"></i> Add to Playlist
+                    </button>
+                </div>
+            </div>
+        `
+      )
+      .join("");
+
+    searchResultsContainer.innerHTML = html;
     searchResultsContainer.setAttribute("role", "list");
   }
 
