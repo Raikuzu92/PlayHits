@@ -5,12 +5,12 @@
 
     <div class="row">
         <!-- Left Column: Your Playlists -->
-        <div class="col-md-3 bg-dark text-white p-4 border-right" id="playlist-column">
+        <div class="col-md-3 bg-dark text-white p-4 border-right" id="playlist-column"data-intro="This is where you can see and manage your playlists." data-step="1">
             <h3>Your Playlists</h3>
             {{#if playlists.length}}
             <ul class="list-group">
                 {{#each playlists}}
-                <li class="list-group-item bg-dark text-white" data-playlist-id="{{this.id}}">
+                <li class="list-group-item bg-dark text-white" data-playlist-id="{{this.id}}"data-intro="Click on a playlist to view its details or add songs." data-step="2"></li>
                     {{this.name}}
                 </li>
                 {{/each}}
@@ -21,7 +21,7 @@
         </div>
 
         <!-- Center Column: All Songs -->
-        <div class="col-md-6 p-4" id="songs-column">
+        <div class="col-md-6 p-4" id="songs-column"data-intro="Here you can search for songs and add them to your playlists." data-step="3">
             <form class="search-form" action="/pageOne/search" method="GET">
                 <input type="text" class="form-control" name="q" id="song-search" placeholder="Search for a song...">
                 <button class="btn" id="search-button">Search</button>
@@ -29,14 +29,14 @@
 
             <div id="song-list">
                 {{#each songs}}
-                <div class="song-item row">
+                <div class="song-item row"data-intro="Click on a song to view more details or add it to a playlist." data-step="4"></div>
                     <div class="col-9">
                         <h5><a href="javascript:void(0);" class="song-title" data-song-id="{{this.id}}">{{this.title}} -
                                 {{this.artist}}</a></h5>
                         <p>{{this.album}} | Released: {{this.dateReleased}} | Duration: {{this.duration}} mins</p>
                     </div>
                     <div class="col-3 text-end">
-                        <button class="btn btn-outline-light add-to-playlist-btn" data-song-id="{{this.id}}">
+                        <button class="btn btn-outline-light add-to-playlist-btn" data-song-id="{{this.id}}"data-intro="Click this button to add the song to your playlist." data-step="5">
                             <i class="fas fa-plus"></i> Add to Playlist
                         </button>
                     </div>
@@ -46,7 +46,7 @@
         </div>
 
         <!-- Right Column: Song Details -->
-        <div class="col-md-3 bg-dark text-white p-4 border-left" id="song-details-column">
+        <div class="col-md-3 bg-dark text-white p-4 border-left" id="song-details-column"data-intro="This section shows the details of the selected song." data-step="6"></div>
             <h4>Song Details</h4>
             <p>Select a song to view its details.</p>
             <div class="song-details">
@@ -56,4 +56,10 @@
     </div>
     <!-- Include Intro.js JavaScript -->
     <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+    <script>
+    // Initialize and start the Intro.js tour
+    document.addEventListener('DOMContentLoaded', function () {
+        introJs().start();
+    });
+</script>
 </div>
