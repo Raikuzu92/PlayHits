@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Select DOM elements
-  const playlistContainer = document.querySelector("#playlist-container");
+  const playlistContainer = document.querySelector("#playlist-column");
   const searchButton = document.querySelector("#search-button");
   const searchInput = document.querySelector("#song-search");
   const searchResultsContainer = document.querySelector("#song-list");
   const songDetailsContainer = document.querySelector(".song-details");
+  const createPlaylistForm = document.querySelector(".create-playlist-form");
+  const modal = document.querySelector("#myModal");
 
   // Debounce function to delay API calls
   function debounce(func, delay) {
@@ -31,24 +33,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Event delegation for playlist and song items
   document.body.addEventListener("click", async function (event) {
-    if (event.target.matches(".playlist-item")) {
+    if (event.target.matches(".list-group-item")) {
       event.preventDefault();
-      const playlistId = event.target.getAttribute("data-id");
+      const playlistId = event.target.getAttribute("data-playlist-id");
       const playlistData = await fetchData(`/api/playlists/${playlistId}`);
       renderPlaylistDetails(playlistData);
     } else if (event.target.matches(".song-title")) {
       event.preventDefault();
-      console.log(
-        "------------------------song listener------------" + event.target
-      );
-      console.log("Clicked element's outerHTML:", event.target.outerHTML);
       const songId = event.target.getAttribute("data-song-id");
-      console.log("Song ID clicked:", songId);
       const songData = await fetchData(`/api/songData/${songId}`);
       renderSongDetails(songData);
     } else if (event.target.matches(".add-to-playlist-btn")) {
       event.preventDefault();
-      const songId = event.target.getAttribute("data-id");
+      const songId = event.target.getAttribute("data-song-id");
       // Handle adding the song to a playlist
     }
   });
@@ -70,33 +67,104 @@ document.addEventListener("DOMContentLoaded", function () {
     handleSearch(query);
   });
 
-  // Function to render playlist details
+  // Create Playlist Handler
+  createPlaylistForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    var title = document.getElementById("playlist-title").value;
+    var artist = document.getElementById("artist-name").value;
+
+    if (!title || !artist) {
+      alert("Please fill out all fields.");
+    } else {
+      try {
+        const response = await fetch("/api/playlists", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: title,
+            artist_name: [artist],
+          }),
+        });
+
+        if (response.ok) {
+          const newPlaylist = await response.json();
+          console.log(newPlaylist);
+          renderNewPlaylist(newPlaylist);
+          const modalInstance = bootstrap.Modal.getInstance(
+            document.getElementById("myModal")
+          );
+          modalInstance.hide();
+          myModal.hide();
+        } else {
+          alert("Failed to create playlist.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Error creating playlist.");
+      }
+    }
+  });
+
+  function renderNewPlaylist(playlist) {
+    const playlistContainer = document.querySelector(
+      "#playlist-column .list-group"
+    );
+
+    // If there are no playlists, remove the "Whoops" message and create the list group
+    if (!playlistContainer) {
+      const newListGroup = document.createElement("ul");
+      newListGroup.className = "list-group";
+      document.querySelector("#playlist-column").appendChild(newListGroup);
+
+      const playlistContainer = newListGroup; // Reassign playlistContainer to the new list group
+    }
+
+    const newPlaylistItem = document.createElement("li");
+    newPlaylistItem.className = "list-group-item bg-dark text-white";
+    newPlaylistItem.setAttribute("data-playlist-id", playlist.id);
+    newPlaylistItem.textContent = playlist.title;
+
+    // Append the new playlist item to the playlist container
+    playlistContainer.appendChild(newPlaylistItem);
+  }
+
   function renderPlaylistDetails(playlistData) {
     if (!playlistData) return;
-    playlistContainer.innerHTML = `
-            <h2 id="playlist-heading">${playlistData.name}</h2>
-            <p>Total Songs: ${playlistData.songs.length}</p>
-            <p>Total Runtime: ${calculateTotalRuntime(playlistData.songs)}</p>
-            <ol>
-                ${playlistData.songs
-                  .map(
-                    (song) => `
-                    <li>
-                        ${song.name} - ${song.artist} (${song.album})
-                        <span class="duration">${song.duration} min</span>
-                    </li>
-                `
-                  )
-                  .join("")}
-            </ol>
-        `;
-    playlistContainer.setAttribute("role", "region");
-    playlistContainer.setAttribute("aria-labelledby", "playlist-heading");
+
+    const playlistContainer = document.getElementById(
+      "playlist-details-container"
+    );
+
+    // Toggle the visibility of the playlist details
+    if (playlistContainer.style.display === "block") {
+      playlistContainer.style.display = "none";
+    } else {
+      playlistContainer.innerHTML = `
+        <p>Total Songs: ${playlistData.songs.length}</p>
+        <p>Total Runtime: ${calculateTotalRuntime(playlistData.songs)}</p>
+        <ol>
+          ${playlistData.songs
+            .map(
+              (song) => `
+                <li>
+                  ${song.name} - ${song.artist} (${song.album})
+                  <span class="duration">${song.duration} min</span>
+                </li>
+              `
+            )
+            .join("")}
+        </ol>
+      `;
+      playlistContainer.setAttribute("role", "region");
+      playlistContainer.setAttribute("aria-labelledby", "playlist-heading");
+      playlistContainer.style.display = "block";
+    }
   }
 
   // Function to render song details
   function renderSongDetails(songData) {
-    console.log("inside song", JSON.stringify(songData, null, 2));
     if (!songData) return;
     songDetailsContainer.innerHTML = `
         <img src="${songData.album_image_url || "default_image.jpg"}" alt="${
