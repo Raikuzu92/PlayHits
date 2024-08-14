@@ -5,13 +5,12 @@ body {
   height: 100%;
   font-family: Arial, sans-serif;
   color: white;
-  background-image: url('/images/background-image.png');
+  background-image: url("/images/background-image.png");
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-
 }
 
 /* Header */
@@ -19,7 +18,7 @@ body {
   background-color: transparent;
   padding: 20px;
   text-align: center;
-  color: #4750FF;
+  color: #4750ff;
 }
 
 /* Navbar */
@@ -63,7 +62,7 @@ form {
 
 form input[type="text"] {
   background-color: transparent;
-  border: 2px solid #4750FF;
+  border: 2px solid #4750ff;
   color: white;
   padding: 10px;
   width: 100%; /* Allow full width within container */
@@ -72,7 +71,7 @@ form input[type="text"] {
 }
 
 form button {
-  background-color: #4750FF;
+  background-color: #4750ff;
   border: none;
   padding: 10px 20px;
   color: white;
@@ -89,7 +88,7 @@ form button:hover {
 /* Card Styling */
 .card {
   background-color: transparent;
-  border: 1px solid #4750FF;
+  border: 1px solid #4750ff;
   border-radius: 10px;
   text-align: center;
 }
@@ -101,13 +100,13 @@ form button:hover {
 .card-title {
   font-size: 1.5rem;
   margin-bottom: 15px;
-  color: #4750FF;
+  color: #4750ff;
 }
 
 .card .icon {
   font-size: 50px;
   margin-bottom: 15px;
-  color: #4750FF;
+  color: #4750ff;
 }
 
 .row {
@@ -130,17 +129,16 @@ form button:hover {
 
 .btn-outline-primary {
   color: #ffffff;
-  border-color: #4750FF;
+  border-color: #4750ff;
 }
 
 .btn-outline-primary:hover {
-  background-color: #4750FF;
+  background-color: #4750ff;
   color: #ffffff;
 }
 
-.btn 
-{
-  background-color: #4750FF;
+.btn {
+  background-color: #4750ff;
   color: white;
   border: none;
 }
@@ -152,7 +150,7 @@ form button:hover {
 }
 
 .list-group-item img {
-  border: 2px solid #4750FF;
+  border: 2px solid #4750ff;
 }
 
 /* Sign Up Page Styles */
@@ -170,13 +168,13 @@ form button:hover {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   border-style: solid;
-  border-color: #4750FF;
+  border-color: #4750ff;
 }
 
 .signup-title {
   font-size: 2rem;
   font-weight: bold;
-  color: #4750FF;
+  color: #4750ff;
   margin-bottom: 25px;
 }
 
@@ -226,7 +224,7 @@ form button:hover {
   width: 100%;
   padding: 15px;
   border-radius: 5px;
-  background-color: #4750FF; /* Your button color */
+  background-color: #4750ff; /* Your button color */
   border: none;
   color: white;
   font-size: 1rem;
@@ -236,7 +234,7 @@ form button:hover {
 }
 
 .signup-button:hover {
-  background-color: #797ffc; 
+  background-color: #797ffc;
 }
 
 /* Login Page Styles */
@@ -254,13 +252,13 @@ form button:hover {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   border-style: solid;
-  border-color: #4750FF;
+  border-color: #4750ff;
 }
 
 .login-title {
   font-size: 2rem;
   font-weight: bold;
-  color: #4750FF;
+  color: #4750ff;
   margin-bottom: 25px;
 }
 
@@ -310,7 +308,7 @@ form button:hover {
   width: 100%;
   padding: 15px;
   border-radius: 5px;
-  background-color: #4750FF; 
+  background-color: #4750ff;
   border: none;
   color: white;
   font-size: 1rem;
@@ -320,7 +318,7 @@ form button:hover {
 }
 
 .login-button:hover {
-  background-color: #797ffc; 
+  background-color: #797ffc;
 }
 
 .forgot-password,
@@ -328,7 +326,7 @@ form button:hover {
   display: block;
   margin-top: 15px;
   text-align: center;
-  color: #4750FF; 
+  color: #4750ff;
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s ease;
@@ -336,9 +334,8 @@ form button:hover {
 
 .forgot-password:hover,
 .signup-link:hover {
-  color: #858bff; 
+  color: #858bff;
 }
-
 
 /* Media Query for Mobile Devices */
 @media (max-width: 600px) {
@@ -406,7 +403,6 @@ form button:hover {
   }
 }
 
-
 .search-bar input {
   width: 100%;
 }
@@ -427,7 +423,7 @@ form button:hover {
 }
 
 .add-to-playlist {
-  background-color: #4750FF;
+  background-color: #4750ff;
   color: white;
 }
 
@@ -436,7 +432,7 @@ form button:hover {
 }
 
 .border-left {
-  border-left: 2px solid #4750FF;
+  border-left: 2px solid #4750ff;
 }
 
 /* Container and Row adjustments */
@@ -447,7 +443,7 @@ form button:hover {
 
 /* Left Column: Playlists */
 #playlist-column h3 {
-  border-bottom: 2px solid #4750FF;
+  border-bottom: 2px solid #4750ff;
   padding-bottom: 10px;
 }
 
@@ -464,7 +460,7 @@ form button:hover {
 /* Center Column: Song Search and List */
 #songs-column .search-bar input {
   background-color: transparent;
-  border: 2px solid #4750FF;
+  border: 2px solid #4750ff;
   color: white;
 }
 
@@ -473,7 +469,7 @@ form button:hover {
 }
 
 #songs-column .search-bar button {
-  background-color: #4750FF;
+  background-color: #4750ff;
   border: none;
   color: white;
   transition: background-color 0.3s;
@@ -485,7 +481,7 @@ form button:hover {
 
 .song-item h5 {
   font-weight: bold;
-  color: #4750FF;
+  color: #4750ff;
 }
 
 .song-item p {
@@ -493,24 +489,24 @@ form button:hover {
 }
 
 .song-item .btn {
-  border: 2px solid #4750FF;
+  border: 2px solid #4750ff;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .song-item .btn:hover {
-  background-color: #4750FF;
+  background-color: #4750ff;
   color: #fff;
 }
 
 /* Right Column: Song Details */
 #song-details-column h4 {
-  border-bottom: 2px solid #4750FF;
+  border-bottom: 2px solid #4750ff;
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
 
 .song-details img {
-  border: 2px solid #4750FF;
+  border: 2px solid #4750ff;
   border-radius: 10px;
   margin-bottom: 20px;
 }
@@ -527,7 +523,7 @@ form button:hover {
 .search-form .form-control {
   flex: 1; /* Take up available space */
   background-color: transparent;
-  border: 2px solid #4750FF;
+  border: 2px solid #4750ff;
   color: white;
   padding: 10px;
   border-radius: 5px 0 0 5px;
@@ -535,7 +531,7 @@ form button:hover {
 }
 
 .search-form .btn {
-  background-color: #4750FF;
+  background-color: #4750ff;
   border: none;
   padding: 12px 20px;
   color: white;
@@ -575,8 +571,120 @@ form button:hover {
 #footer {
   background-color: transparent;
   padding: 20px 0;
-  color: #4750FF;
-  border-top: 2px solid #4750FF;
+  color: #4750ff;
+  border-top: 2px solid #4750ff;
   margin-top: auto;
   width: 100%;
+}
+
+#playlist-details-container {
+  background-color: #222;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  color: #fff;
+}
+
+#playlist-details-container p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+#playlist-details-container ol {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+#playlist-details-container li {
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background-color: #333;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#playlist-details-container li:hover {
+  background-color: #555;
+}
+
+.playlist-item-title {
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: color 0.3s ease;
+}
+
+.playlist-item-title:hover {
+  color: #1db954;
+}
+
+.duration {
+  color: #1db954;
+  font-weight: bold;
+}
+
+.playlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#add-song-btn {
+  font-size: 18px;
+  padding: 5px 10px;
+  background-color: #4750ff;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+
+#add-song-btn:hover {
+  background-color: #1ed760;
+}
+
+.modal-content {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+.modal-header .close {
+  color: white;
+}
+
+.modal-header h4 {
+  font-size: 1.5rem;
+}
+
+.form-control {
+  background-color: #444;
+  color: white;
+  border: 1px solid #555;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.modal-header .close {
+  color: white;
+  background: none;
+  border: none;
+  outline: none;
+  opacity: 1;
+}
+
+.modal-header .close:hover,
+.modal-header .close:focus {
+  color: #fff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  outline: none;
 }
