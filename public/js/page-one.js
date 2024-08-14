@@ -92,11 +92,19 @@ document.addEventListener("DOMContentLoaded", function () {
           const newPlaylist = await response.json();
           console.log(newPlaylist);
           renderNewPlaylist(newPlaylist);
-          const modalInstance = bootstrap.Modal.getInstance(
-            document.getElementById("myModal")
-          );
-          modalInstance.hide();
-          myModal.hide();
+          // const modalElement = document.getElementById("myModal");
+          // const modalInstance = new bootstrap.Modal(modalElement);
+          // modalInstance.hide();
+          modal.style.display = "none";
+          // Ensure the backdrop is removed
+          const backdrop = document.querySelector(".modal-backdrop");
+          if (backdrop) {
+            backdrop.parentNode.removeChild(backdrop);
+          }
+
+          // Remove the 'modal-open' class from the body to enable scrolling
+          document.body.classList.remove("modal-open");
+          document.body.style.paddingRight = ""; // Reset any padding added to prevent layout shifts
         } else {
           alert("Failed to create playlist.");
         }
