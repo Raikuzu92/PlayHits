@@ -27,3 +27,26 @@
   margin: 30px;
   max-width: 600px;
 }
+audio {
+  position: fixed;
+  bottom: 70px; /* Adjusted to move it up from the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 300px;
+  background-color: #306aa5;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #306aa5;
+  border-radius: 10px;
+}
+
+audio::-webkit-media-controls-play-button {
+  background-color: #1abc9c;
+}

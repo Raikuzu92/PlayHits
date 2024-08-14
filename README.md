@@ -9,10 +9,10 @@
   <!-- ![Name](urlToShieldHere)(urlToGithubHere) -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Contributors](https://img.shields.io/github/contributors/404pandas/project-2-setup-guide.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/project-2-setup-guide/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/404pandas/project-2-setup-guide.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/project-2-setup-guide/network/members)
-[![Stargazers](https://img.shields.io/github/stars/404pandas/project-2-setup-guide.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/project-2-setup-guide/stargazers)
-[![Issues](https://img.shields.io/github/issues/404pandas/project-2-setup-guide.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/project-2-setup-guide/issues)
+[![Contributors](https://img.shields.io/github/contributors/404pandas/project-2-setup-guide.svg?style=plastic&logo=appveyor)](https://github.com/Raikuzu92/PlayHits/graphs/contributors)
+[![Forks](https://img.shields.io/github/forks/404pandas/project-2-setup-guide.svg?style=plastic&logo=appveyor)](https://github.com/Raikuzu92/PlayHits/forks)
+[![Stargazers](https://img.shields.io/github/stars/404pandas/project-2-setup-guide.svg?style=plastic&logo=appveyor)](https://github.com/Raikuzu92/Playhits/stargazers)
+[![Issues](https://img.shields.io/github/issues/404pandas/project-2-setup-guide.svg?style=plastic&logo=appveyor)](https://github.com/Raikuzu92/Playhits/issues)
 
 </div>
 
@@ -25,20 +25,20 @@
   </a>
 
 <!-- TODO: Edit App name -->
-  <h3 align="center">Project 2 App Name</h3>
+  <h3 align="center">Playhits</h3>
 
   <p align="center">
   <!-- TODO: Edit App description -->
     Project 2 Description will go here    <br />
-    <a href="https://github.com/404pandas/project-2-setup-guide"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Raikuzu92/Playhits"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <!-- TODO: Edit deployment link -->
-    <a href="https://github.com/404pandas/project-2-setup-guide">View Demo(Coming Soon)</a>
+    <a href="https://github.com/Raikuzu92/Playhits">View Demo(Coming Soon)</a>
     ·
-    <a href="https://github.com/404pandas/project-2-setup-guide/issues">Report Bug</a>
+    <a href="https://github.com/Raikuzu92/Playhits/issues">Report Bug</a>
     ·
-    <a href="https://github.com/404pandas/project-2-setup-guide/issues">Request Feature</a>
+    <a href="https://github.com/Raikuzu92/Playhits/issues">Request Feature</a>
 
   </p>
 </div>
@@ -84,17 +84,23 @@ This project was built using Node, Express, Handlebars, PostgreSQL, and Sequeliz
 
 <div align="center">
 
-<!-- TODO      "bcrypt": "^5.0.0",
+   
+  "dependencies": {
+    "bcrypt": "^5.0.0",
     "connect-session-sequelize": "^7.0.4",
+    "csvtojson": "^2.0.10",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
+    "intro.js": "^8.0.0-beta.1",
     "pg": "^8.11.3",
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"-->
+    "nodemon": "^3.0.3"
+  }
+ 
 
 <!-- TODO: Add any additional badges as needed. For more info, visit: https://github.com/404pandas/empty-resources/blob/main/assets/images/shields.md -->
 
@@ -153,6 +159,19 @@ npm run start
 
 <!-- TODO: Plan out rough roadmap here -->
 
+Title: PlayHits
+
+Description: This applpication allows you to create, search and listen to music playlists
+
+Table of Contents
+  - Home
+  - Playlists
+  - About Us
+  - Login
+  - Sign Up
+
+
+
 #### MVP
 
 <!-- This is a nested check-box that displays a nice checked or unchecked list on your Github repo to show your visitor's a quick road map! -->
@@ -208,17 +227,17 @@ This project is licensed under the MIT license.
 
 <!-- TODO: Add your name, portfolio link, and email if you would like here -->
 
-[Mary Elenius](https://maryelenius.com/) - mary.panda.jackson@gmail.com
+[Robert Green](https://github.com/Raikuzu92/)
 
-[Contributor One](https://maryelenius.com/) - contributor.one@email.com
+[Sai Yerragudi](https://github.com/shreyareddy6/)
 
-[Contributor One](https://maryelenius.com/) - contributor.one@email.com
+[Derick Hernandez](https://github.com/appleinmyface/)
 
-[Contributor One](https://maryelenius.com/) - contributor.one@email.com
+[Luis Lima](https://github.com/NighthawkL06/)
 
 Project Links:
 
-[Github Repository](https://github.com/404pandas/project-2-setup-guide)
+[Github Repository](https://github.com/Raikuzu92/PlayHits)
 
 <!-- TODO: add your deployment link here -->
 
