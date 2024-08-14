@@ -155,9 +155,9 @@ function renderPlaylistDetails(playlist) {
               // Debugging log to check song data
               console.log('Song data:', song);
 
-              // Extracting title and artist from arrays
-              const title = (song.track_name && song.track_name.length > 0) ? song.track_name[0] : "Unknown Title";
-              const artist = (song.artist_name && song.artist_name.length > 0) ? song.artist_name[0] : "Unknown Artist";
+              // Handle both array and non-array formats for title and artist
+              const title = Array.isArray(song.track_name) ? (song.track_name.length > 0 ? song.track_name[0] : "Unknown Title") : (song.track_name || "Unknown Title");
+              const artist = Array.isArray(song.artist_name) ? (song.artist_name.length > 0 ? song.artist_name[0] : "Unknown Artist") : (song.artist_name || "Unknown Artist");
 
               return `
                 <li class="song-item">
@@ -178,14 +178,16 @@ function renderPlaylistDetails(playlist) {
   songDetailsContainer.innerHTML = html;
 }
 
+
+
 // Function to render song details
 function renderSongDetails(songData) {
   if (!songData) return;
 
-  // Extracting the first element from arrays
-  const trackName = songData.track_name ? songData.track_name[0] : "Unknown Title";
-  const artistName = songData.artist_name ? songData.artist_name[0] : "Unknown Artist";
-  const albumName = songData.album_name || "Unknown Album";
+  // Handling possible string or array values
+  const trackName = Array.isArray(songData.track_name) ? songData.track_name[0] : songData.track_name || "Unknown Title";
+  const artistName = Array.isArray(songData.artist_name) ? songData.artist_name[0] : songData.artist_name || "Unknown Artist";
+  const albumName = Array.isArray(songData.album_name) ? songData.album_name[0] : songData.album_name || "Unknown Album";
   const releaseDate = songData.album_release_date || "Unknown Release Date";
   const durationMs = songData.track_duration_ms || "Unknown Duration";
   const duration = durationMs !== "Unknown Duration" ? (parseInt(durationMs) / 60000).toFixed(2) : "Unknown Duration"; // converting ms to minutes
@@ -210,6 +212,7 @@ function renderSongDetails(songData) {
   songDetailsContainer.setAttribute("role", "region");
   songDetailsContainer.setAttribute("aria-labelledby", "song-details-heading");
 }
+
 
 
   // Render search results
