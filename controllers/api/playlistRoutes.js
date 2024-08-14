@@ -1,72 +1,67 @@
 const router = require("express").Router();
-
 const { Playlist, Song } = require("../../models");
-
 const { apiGuard } = require("../../utils/authGuard");
 
+// Get all playlists
 router.get("/", async (req, res) => {
   try {
-    const playlists = await Playlist.findAll({});
-
-    res.json(playlists); // Return the fetched data
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  try {
-    const playlistData = await Playlist.findByPk(req.params.id, {
-      // JOIN with locations, using the Trip through table
+    const playlists = await Playlist.findAll({
       include: [{ model: Song }],
     });
-    if (!playlistData) {
-      res.status(404).json({ message: "No traveller found with this id!" });
-      return;
-    }
-    res.status(200).json(playlistData);
+    res.status(200).json(playlists);
   } catch (err) {
-    res.status(500).json(err);
+    console.error("Error fetching playlists:", err);
+    res.status(500).json({ error: "Error fetching playlists" });
   }
 });
 
+// Get a specific playlist by id
+router.get("/:id", async (req, res) => {
+  try {
+    const playlist = await Playlist.findByPk(req.params.id, {
+      include: [{ model: Song }],
+    });
+    if (!playlist) {
+      return res.status(404).json({ message: "Playlist not found" });
+    }
+    res.status(200).json(playlist);
+  } catch (err) {
+    console.error("Error fetching playlist:", err);
+    res.status(500).json({ error: "Error fetching playlist" });
+  }
+});
+
+// Create a new playlist
 router.post("/", apiGuard, async (req, res) => {
-  console.log(req.body + "--------------------------");
   try {
     const newPlaylist = await Playlist.create({
       ...req.body,
-      user_id: req.session.user_id,
+      user_id: req.session.user_id, // Ensure user_id is taken from the session
     });
-    // Redirect to playlists page
-    res.status(200).json(newPlaylist);
+    res.status(201).json(newPlaylist);
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    console.error("Error creating playlist:", err);
+    res.status(500).json({ error: "Error creating playlist" });
   }
 });
 
+// Add a song to a playlist by song ID
 router.post("/:id/add-song", async (req, res) => {
   try {
-    // Step 1: Create or find a song
-    const songData = {
-      track_name: req.body.track_name,
-      artist_name: req.body.artist_name,
-    };
-    const newSong = await Song.create(songData);
-
-    // Step 2: Find the playlist by its ID from the request parameters
-    const playlistId = req.params.id;
-    const playlist = await Playlist.findByPk(playlistId);
-
+    // Find the playlist by ID
+    const playlist = await Playlist.findByPk(req.params.id);
     if (!playlist) {
-      console.error("Playlist not found");
       return res.status(404).json({ error: "Playlist not found" });
     }
 
-    // Step 3: Add the new song to the playlist
-    await playlist.addSong(newSong);
-    console.log("Song added to playlist successfully");
+    // Find the song by ID
+    const song = await Song.findByPk(req.body.songId);
+    if (!song) {
+      return res.status(404).json({ error: "Song not found" });
+    }
+
+    // Add the song to the playlist
+    await playlist.addSong(song);
     res.status(200).json({ message: "Song added to playlist successfully" });
   } catch (error) {
     console.error("Error adding song to playlist:", error);
@@ -74,33 +69,42 @@ router.post("/:id/add-song", async (req, res) => {
   }
 });
 
-// Delete song from playlist
+
+// Remove a song from a playlist
 router.delete("/:id/song/:songId", async (req, res) => {
   try {
-    const playlistId = req.params.id;
-    const songId = req.params.songId;
-
-    const playlist = await Playlist.findByPk(playlistId);
+    const playlist = await Playlist.findByPk(req.params.id);
+    const song = await Song.findByPk(req.params.songId);
 
     if (!playlist) {
-      console.error("Playlist not found");
       return res.status(404).json({ error: "Playlist not found" });
     }
-    const song = await Song.findByPk(songId);
+
     if (!song) {
-      console.error("Song not found");
       return res.status(404).json({ error: "Song not found" });
     }
 
+    // Remove the song from the playlist
     await playlist.removeSong(song);
-
-    console.log("Song successfully deleted from playlist");
-    res
-      .status(200)
-      .json({ message: "Song successfully deleted from playlist" });
+    res.status(200).json({ message: "Song removed from playlist successfully" });
   } catch (error) {
-    console.error("Error deleting song from playlist:", error);
-    res.status(500).json({ error: "Error deleting song from playlist" });
+    console.error("Error removing song from playlist:", error);
+    res.status(500).json({ error: "Error removing song from playlist" });
+  }
+});
+
+// Delete playlist
+router.delete('/:id', async (req, res) => {
+  try {
+    const playlist = await Playlist.findByPk(req.params.id);
+    if (!playlist) {
+      return res.status(404).json({ error: 'Playlist not found' });
+    }
+    await playlist.destroy();
+    res.status(200).json({ message: 'Playlist deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting playlist:', error);
+    res.status(500).json({ error: 'Error deleting playlist' });
   }
 });
 

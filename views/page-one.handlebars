@@ -1,136 +1,164 @@
 <div>
-    <!-- Include Intro.js CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css">
-    
-        <style>
-        /* Custom styles for Intro.js */
-        .introjs-tooltip {
-            background-color: #333 !important;
-            color: #fff !important;
-        }
+  <!-- Include Intro.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css">
 
-        .introjs-tooltiptext {
-            color: #fff !important;
-        }
+  <style>
+    /* Custom styles for Intro.js */
+    .introjs-tooltip {
+      background-color: #333 !important;
+      color: #fff !important;
+    }
 
-        .introjs-helperNumberLayer,
-        .introjs-bullets,
-        .introjs-progress,
-        .introjs-button {
-            color: #333 !important;
-            background-color: #fff !important;
-        }
+    .introjs-tooltiptext {
+      color: #fff !important;
+    }
 
-        .introjs-tooltipTitle {
-            font-size: 18px !important;
-            font-weight: bold !important;
-            color: #fff !important;
-        }
+    .introjs-helperNumberLayer,
+    .introjs-bullets,
+    .introjs-progress,
+    .introjs-button {
+      color: #333 !important;
+      background-color: #fff !important;
+    }
 
-        .introjs-arrow {
-            border-top-color: #333 !important;
-        }
+    .introjs-tooltipTitle {
+      font-size: 18px !important;
+      font-weight: bold !important;
+      color: #fff !important;
+    }
 
-        .introjs-progressbar {
-            background-color: #007bff !important;
-        }
-    </style>
+    .introjs-arrow {
+      border-top-color: #333 !important;
+    }
 
-    <div class="row">
-        <!-- Left Column: Your Playlists -->
-        <div class="col-md-3 bg-dark text-white p-4 border-right" id="playlist-column">
-            <div class="playlist-header">
-            <h2>Your Playlists</h2>
-             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-  +
-</button>
-            </div>
-            {{#if playlists.length}}
-            <ul class="list-group">
-                {{#each playlists}}
-                <li class="list-group-item bg-dark text-white" data-playlist-id="{{this.id}}">
-                    {{this.name}}
-                    <div id="playlist-details-container" style="display: none;">
-                    <!-- Playlist details will be dynamically loaded here -->
-                    </div>
-                </li>
-                {{/each}}
-            </ul>
-            {{else}}
-            <p>Whoops, looks like you don't have any playlists yet.</p>
-            {{/if}}
-        </div>
+    .introjs-progressbar {
+      background-color: #007bff !important;
+    }
 
-        <!-- Center Column: All Songs -->
-        <div class="col-md-6 p-4" id="songs-column">
-            <form class="search-form">
-                <input type="text" class="form-control" name="q" id="song-search" placeholder="Search for a song...">
-                <button class="btn" id="search-button">Search</button>
-            </form>
+    .search-form {
+      margin-bottom: 15px;
+    }
+  </style>
 
-            <div id="song-list">
-                {{#each songs}}
-                <div class="song-item row">
-                    <div class="col-9">
-    <h5>
-      <a href="javascript:void(0);" class="song-title" data-song-id="{{this.id}}">
-        {{this.title}} - {{this.artist}}
-      </a>
-    </h5>
-                        <p>{{this.album}} | Released: {{this.dateReleased}} | Duration: {{this.duration}} mins</p>
-                    </div>
-                    <div class="col-3 text-end">
-                        <button class="btn btn-outline-light add-to-playlist-btn" data-song-id="{{this.id}}">
-                            <i class="fas fa-plus"></i> Add to Playlist
-                        </button>
-                    </div>
-                </div>
-                {{/each}}
-            </div>
-        </div>
-
-        <!-- Right Column: Song Details -->
-        <div class="col-md-3 bg-dark text-white p-4 border-left" id="song-details-column">
-            <h4>Song Details</h4>
-            <p>Select a song to view its details.</p>
-            <div class="song-details">
-                <!-- Details will be dynamically loaded here -->
-            </div>
-        </div>
+  <div class="row">
+    <!-- Left Column: Your Playlists -->
+    <div class="col-md-3 bg-dark text-white p-4 border-right" id="playlist-column">
+      <div class="playlist-header">
+        <h2>Your Playlists</h2>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+</button>
+      </div>
+      {{#if playlists.length}}
+      <ul class="list-group">
+        {{#each playlists}}
+        <li class="list-group-item bg-dark text-white d-flex justify-content-between align-items-center"
+          data-playlist-id="{{this.id}}">
+          {{this.name}}
+          <button class="btn btn-danger btn-sm delete-playlist-btn" data-playlist-id="{{this.id}}">X</button>
+        </li>
+        {{/each}}
+      </ul>
+      {{else}}
+      <p>Whoops, looks like you don't have any playlists yet.</p>
+      {{/if}}
     </div>
-<!-- The Modal -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content" style="background-color: #2a2a2a; color: white;">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Create Your Playlist</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+    <!-- Center Column: All Songs -->
+    <div class="col-md-6 p-4" id="songs-column">
+      <form class="search-form">
+        <input type="text" class="form-control" name="q" id="song-search" placeholder="Search for a song...">
+        <button class="btn btn-primary" id="search-button">Search</button>
+      </form>
 
-<!-- Modal Body -->
-<div class="modal-body">
-  <form class="create-playlist-form">
-    <div class="form-group d-flex align-items-center" style="margin-right: 15px;">
-      <div class="flex-grow-1 me-3">
-        <label for="playlist-title">Playlist Title</label>
-        <input type="text" class="form-control" id="playlist-title" placeholder="Enter playlist title" style="background-color: #444; color: white; border: 1px solid #555;" required>
-      </div>
-      <div class="flex-grow-1 me-3">
-        <label for="description">Description</label>
-        <input type="text" class="form-control" id="description" placeholder="Enter description" style="background-color: #444; color: white; border: 1px solid #555;">
-      </div>
-      <div class="d-flex align-items-end">
-        <button type="submit" class="btn btn-primary" style="min-width: 120px;">Create Playlist</button>
+      <div id="song-list">
+        {{#each songs}}
+        <div class="song-item row">
+          <div class="col-9">
+            <h5>
+              <a href="javascript:void(0);" class="song-title" data-song-id="{{this.id}}">
+                {{this.title}} - {{this.artist}}
+              </a>
+            </h5>
+            <p>{{this.album}} | Released: {{this.dateReleased}} | Duration: {{this.duration}} mins</p>
+          </div>
+          <div class="col-3 text-end">
+            <button class="btn btn-outline-light add-to-playlist-btn" data-song-id="{{this.id}}">
+              <i class="fas fa-plus"></i> Add to Playlist
+            </button>
+          </div>
+        </div>
+        {{/each}}
       </div>
     </div>
-  </form>
-</div>
 
+    <!-- Right Column: Song Details -->
+    <div class="col-md-3 bg-dark text-white p-4 border-left" id="song-details-column">
+      <h4>Song Details</h4>
+      <p>Select a song to view its details.</p>
+      <div class="song-details">
+        <!-- Details will be dynamically loaded here -->
+      </div>
     </div>
   </div>
-</div>
-    <!-- Include Intro.js JavaScript -->
-    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+
+  <!-- The Modal for Creating Playlists -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: #2a2a2a; color: white;">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Create Your Playlist</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form class="create-playlist-form">
+            <div class="form-group">
+              <label for="playlist-title">Playlist Title</label>
+              <input type="text" class="form-control" id="playlist-title" placeholder="Enter playlist title"
+                style="background-color: #444; color: white; border: 1px solid #555;" required>
+            </div>
+            <div class="form-group flex-grow-1 me-3">
+              <label for="description">Description</label>
+              <input type="text" class="form-control" id="description" placeholder="Enter description"
+                style="background-color: #444; color: white; border: 1px solid #555;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="min-width: 120px;">Create Playlist</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Modal for Selecting a Playlist to Add Song -->
+  <div class="modal fade" id="addToPlaylistModal" tabindex="-1" role="dialog" aria-labelledby="addToPlaylistModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color: #2a2a2a; color: white;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addToPlaylistModalLabel">Add Song to Playlist</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="add-song-to-playlist-form">
+            <div class="form-group">
+              <label for="select-playlist">Select Playlist</label>
+              <select class="form-control" id="select-playlist" required>
+                <option value="" disabled selected>Select your playlist</option>
+                {{#each playlists}}
+                <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <input type="hidden" id="selected-song-id">
+            <button type="submit" class="btn btn-primary">Add to Playlist</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include Intro.js JavaScript -->
+  <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
 </div>
