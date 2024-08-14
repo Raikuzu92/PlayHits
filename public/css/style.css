@@ -688,3 +688,13 @@ form button:hover {
   border: none;
   outline: none;
 }
+
+#start-tour-btn {
+  position: fixed;
+  bottom: 20px; /* Distance from the bottom of the screen */
+  right: 20px;  /* Distance from the right of the screen */
+  z-index: 1000; /* Ensures the button appears above other elements */
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+}
