@@ -4,9 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchButton = document.querySelector("#search-button");
   const searchInput = document.querySelector("#song-search");
   const searchResultsContainer = document.querySelector("#song-list");
-  const songDetailsContainer = document.querySelector(
-    "#song-details-container"
-  );
+  const songDetailsContainer = document.querySelector(".song-details");
 
   // Debounce function to delay API calls
   function debounce(func, delay) {
@@ -40,7 +38,12 @@ document.addEventListener("DOMContentLoaded", function () {
       renderPlaylistDetails(playlistData);
     } else if (event.target.matches(".song-title")) {
       event.preventDefault();
-      const songId = event.target.getAttribute("data-id");
+      console.log(
+        "------------------------song listener------------" + event.target
+      );
+      console.log("Clicked element's outerHTML:", event.target.outerHTML);
+      const songId = event.target.getAttribute("data-song-id");
+      console.log("Song ID clicked:", songId);
       const songData = await fetchData(`/api/songData/${songId}`);
       renderSongDetails(songData);
     } else if (event.target.matches(".add-to-playlist-btn")) {
@@ -93,21 +96,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to render song details
   function renderSongDetails(songData) {
+    console.log("inside song", JSON.stringify(songData, null, 2));
     if (!songData) return;
     songDetailsContainer.innerHTML = `
-            <img src="${songData.album_image_url}" alt="${
+        <img src="${songData.album_image_url || "default_image.jpg"}" alt="${
       songData.album_name
     }" />
-            <h3 id="song-details-heading">${songData.track_name}</h3>
-            <p>Artist: ${songData.album_artist_name}</p>
-            <p>Album: ${songData.album_name}</p>
-            <p>Date Released: ${songData.album_release_date}</p>
-            <p>Duration: ${songData.track_duration_ms}</p>
-            <p>Explicit: ${songData.explicit ? "Yes" : "No"}</p>
-            <p><a href="${
-              songData.track_uri
-            }" target="_blank">Listen on Spotify</a></p>
-        `;
+        <h3 id="song-details-heading">${songData.track_name}</h3>
+        <p>Artist: ${songData.album_artist_name}</p>
+        <p>Album: ${songData.album_name}</p>
+        <p>Date Released: ${songData.album_release_date}</p>
+        <p>Duration: ${songData.track_duration_ms}</p>
+        <p>Explicit: ${songData.explicit ? "Yes" : "No"}</p>
+        <p><a href="${
+          songData.track_uri
+        }" target="_blank">Listen on Spotify</a></p>
+    `;
     songDetailsContainer.setAttribute("role", "region");
     songDetailsContainer.setAttribute(
       "aria-labelledby",

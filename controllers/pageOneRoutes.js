@@ -8,10 +8,6 @@ const { Playlist, Song } = require("../models");
 // Protects routes from unauthorized access
 const { withGuard } = require("../utils/authGuard");
 
-// Load JSON data
-const jsonFilePath = path.join(__dirname, "../seeds/musicData.json");
-const songData = JSON.parse(fs.readFileSync(jsonFilePath, "utf8"));
-
 // Display playlists and popular songs as soon as the page loads
 router.get("/", withGuard, async (req, res) => {
   try {
@@ -44,8 +40,9 @@ router.get("/", withGuard, async (req, res) => {
       };
     });
 
-    // Process JSON data to get popular songs
-    const popularSongs = songData
+    // Fetch popular songs from the database instead of JSON
+    const popularSongsData = await Song.findAll();
+    const popularSongs = popularSongsData
       .filter((song) => song.popularity) // Filter out songs without a popularity score
       .sort((a, b) => b.popularity - a.popularity) // Sort by popularity in descending order
       .map((song) => {
@@ -64,7 +61,7 @@ router.get("/", withGuard, async (req, res) => {
 
     // Slice the array to only include the first 10 songs
     const topTenSongs = popularSongs.slice(0, 10);
-
+    console.log(topTenSongs);
     // Pass data to the Handlebars template
     res.render("page-one", {
       loggedIn: req.session.logged_in,
